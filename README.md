@@ -1,19 +1,19 @@
-# lsp-types
+# ls-types
 
 [![CI][ci-badge]][ci-url]
 <!-- [![Crates.io][crates-badge]][crates-url] -->
 <!-- [![Documentation][docs-badge]][docs-url] -->
 
-[ci-badge]: https://github.com/tower-lsp-community/lsp-types/actions/workflows/rust.yml/badge.svg?branch=main
-[ci-url]: https://github.com/tower-lsp-community/lsp-types/actions
-<!-- [crates-badge]: https://img.shields.io/crates/v/lsp-types.svg -->
+[ci-badge]: https://github.com/tower-lsp-community/ls-types/actions/workflows/rust.yml/badge.svg?branch=main
+[ci-url]: https://github.com/tower-lsp-community/ls-types/actions
+<!-- [crates-badge]: https://img.shields.io/crates/v/ls-types.svg -->
 <!-- [crates-url]: https://crates.io/crates/tower-lsp-server -->
 <!-- [docs-badge]: https://docs.rs/tower-lsp-server/badge.svg -->
 <!-- [docs-url]: https://docs.rs/tower-lsp-server -->
 
 *A fork of [lsp-types](https://github.com/gluon-lang/lsp-types)*
 
-- [Projects using `lsp-types`](#projects-using-lsp-types)
+- [Projects using `ls-types`](#projects-using-ls-types)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -29,7 +29,7 @@ Supports LSP version [*3.17*]. Proposed version [*3.18*] features can be activat
 [*3.17*]: https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification
 [*3.18*]: https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification
 
-# Projects using `lsp-types`
+# Projects using `ls-types`
 
 - [tower-lsp-server](https://github.com/tower-lsp-community/tower-lsp-server)
 
@@ -39,7 +39,6 @@ If you are making a change which adds, removes or modifies the LSP API it is hig
 
 # License
 
-`lsp-types` is free and open source software distributed under the terms of either the [MIT](LICENSE-MIT) or the [Apache 2.0](LICENSE-APACHE) license, at your option.
+`ls-types` is free and open source software distributed under the terms of either the [MIT](LICENSE-MIT) or the [Apache 2.0](LICENSE-APACHE) license, at your option.
 
 Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the work by you, as defined in the Apache-2.0 license, shall be dual licensed as above, without any additional terms or conditions.
-

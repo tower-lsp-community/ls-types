@@ -1,5 +1,6 @@
-target
+target/
 Cargo.lock
+
 /.settings/
 /.project
 /.vscode

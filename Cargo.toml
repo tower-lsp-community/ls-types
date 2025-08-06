@@ -1,15 +1,16 @@
 [package]
-name = "lsp-types"
-version = "0.97.0"
+name = "ls-types"
+version = "0.0.1"
 edition = "2024"
 
-description = "Types for interaction with a language server, using VSCode's Language Server Protocol"
+description = "Types for the Language Server Protocol specification"
 authors = [
   "Markus Westerlind <marwes91@gmail.com>",
   "Bruno Medeiros <bruno.do.medeiros@gmail.com>",
+  "Milo Moisson <milo@wiro.world>"
 ]
-repository = "https://github.com/gluon-lang/lsp-types"
-keywords = ["language", "server", "lsp", "vscode", "lsif"]
+repository = "https://github.com/tower-lsp-community/ls-types"
+keywords = ["language-server", "lsp", "lsif"]
 categories = ["network-programming"]
 license = "MIT"
 
@@ -17,13 +18,12 @@ license = "MIT"
 bitflags = "2"
 fluent-uri = "0.3"
 serde_json = "1"
-serde_repr = "0.1"
 serde = { version = "1", features = ["derive"] }
 
 [features]
 default = []
 # Enables proposed LSP extensions.
-# NOTE: No semver compatibility is guaranteed for types enabled by this feature.
+# NOTE: no semver compatibility is guaranteed for types enabled by this feature.
 proposed = []
 
 [lints.rust]
