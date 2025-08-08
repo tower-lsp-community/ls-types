@@ -1,15 +1,15 @@
 # ls-types
 
 [![CI][ci-badge]][ci-url]
-<!-- [![Crates.io][crates-badge]][crates-url] -->
-<!-- [![Documentation][docs-badge]][docs-url] -->
+[![Crates.io][crates-badge]][crates-url]
+[![Documentation][docs-badge]][docs-url]
 
 [ci-badge]: https://github.com/tower-lsp-community/ls-types/actions/workflows/rust.yml/badge.svg?branch=main
 [ci-url]: https://github.com/tower-lsp-community/ls-types/actions
-<!-- [crates-badge]: https://img.shields.io/crates/v/ls-types.svg -->
-<!-- [crates-url]: https://crates.io/crates/tower-lsp-server -->
-<!-- [docs-badge]: https://docs.rs/tower-lsp-server/badge.svg -->
-<!-- [docs-url]: https://docs.rs/tower-lsp-server -->
+[crates-badge]: https://img.shields.io/crates/v/ls-types.svg
+[crates-url]: https://crates.io/crates/ls-types
+[docs-badge]: https://docs.rs/ls-types/badge.svg
+[docs-url]: https://docs.rs/ls-types
 
 *A fork of [lsp-types](https://github.com/gluon-lang/lsp-types)*
 
