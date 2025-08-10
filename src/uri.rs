@@ -104,7 +104,7 @@ mod tests {
     #[test]
     fn test_add_fragment() {
         let mut uri = Uri::from_str("https://www.example.com").unwrap();
-        uri.set_fragment(Some(&EStr::new_or_panic("L11")));
+        uri.set_fragment(Some(EStr::new_or_panic("L11")));
         assert_eq!(uri.as_str(), "https://www.example.com#L11");
     }
 }

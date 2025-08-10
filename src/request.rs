@@ -8,205 +8,73 @@ pub trait Request {
     const METHOD: &'static str;
 }
 
+#[rustfmt::skip]
 #[macro_export]
 macro_rules! lsp_request {
-    ("initialize") => {
-        $crate::request::Initialize
-    };
-    ("shutdown") => {
-        $crate::request::Shutdown
-    };
-
-    ("window/showMessageRequest") => {
-        $crate::request::ShowMessageRequest
-    };
-
-    ("client/registerCapability") => {
-        $crate::request::RegisterCapability
-    };
-    ("client/unregisterCapability") => {
-        $crate::request::UnregisterCapability
-    };
-
-    ("workspace/symbol") => {
-        $crate::request::WorkspaceSymbolRequest
-    };
-    ("workspaceSymbol/resolve") => {
-        $crate::request::WorkspaceSymbolResolve
-    };
-    ("workspace/executeCommand") => {
-        $crate::request::ExecuteCommand
-    };
-
-    ("textDocument/willSaveWaitUntil") => {
-        $crate::request::WillSaveWaitUntil
-    };
-
-    ("textDocument/completion") => {
-        $crate::request::Completion
-    };
-    ("completionItem/resolve") => {
-        $crate::request::ResolveCompletionItem
-    };
-    ("textDocument/hover") => {
-        $crate::request::HoverRequest
-    };
-    ("textDocument/signatureHelp") => {
-        $crate::request::SignatureHelpRequest
-    };
-    ("textDocument/declaration") => {
-        $crate::request::GotoDeclaration
-    };
-    ("textDocument/definition") => {
-        $crate::request::GotoDefinition
-    };
-    ("textDocument/references") => {
-        $crate::request::References
-    };
-    ("textDocument/documentHighlight") => {
-        $crate::request::DocumentHighlightRequest
-    };
-    ("textDocument/documentSymbol") => {
-        $crate::request::DocumentSymbolRequest
-    };
-    ("textDocument/codeAction") => {
-        $crate::request::CodeActionRequest
-    };
-    ("textDocument/codeLens") => {
-        $crate::request::CodeLensRequest
-    };
-    ("codeLens/resolve") => {
-        $crate::request::CodeLensResolve
-    };
-    ("textDocument/documentLink") => {
-        $crate::request::DocumentLinkRequest
-    };
-    ("documentLink/resolve") => {
-        $crate::request::DocumentLinkResolve
-    };
-    ("workspace/applyEdit") => {
-        $crate::request::ApplyWorkspaceEdit
-    };
-    ("textDocument/rangeFormatting") => {
-        $crate::request::RangeFormatting
-    };
-    ("textDocument/onTypeFormatting") => {
-        $crate::request::OnTypeFormatting
-    };
-    ("textDocument/formatting") => {
-        $crate::request::Formatting
-    };
-    ("textDocument/rename") => {
-        $crate::request::Rename
-    };
-    ("textDocument/documentColor") => {
-        $crate::request::DocumentColor
-    };
-    ("textDocument/colorPresentation") => {
-        $crate::request::ColorPresentationRequest
-    };
-    ("textDocument/foldingRange") => {
-        $crate::request::FoldingRangeRequest
-    };
-    ("textDocument/prepareRename") => {
-        $crate::request::PrepareRenameRequest
-    };
-    ("textDocument/implementation") => {
-        $crate::request::GotoImplementation
-    };
-    ("textDocument/typeDefinition") => {
-        $crate::request::GotoTypeDefinition
-    };
-    ("textDocument/selectionRange") => {
-        $crate::request::SelectionRangeRequest
-    };
-    ("workspace/workspaceFolders") => {
-        $crate::request::WorkspaceFoldersRequest
-    };
-    ("workspace/configuration") => {
-        $crate::request::WorkspaceConfiguration
-    };
-    ("window/workDoneProgress/create") => {
-        $crate::request::WorkDoneProgressCreate
-    };
-    ("callHierarchy/incomingCalls") => {
-        $crate::request::CallHierarchyIncomingCalls
-    };
-    ("callHierarchy/outgoingCalls") => {
-        $crate::request::CallHierarchyOutgoingCalls
-    };
-    ("textDocument/moniker") => {
-        $crate::request::MonikerRequest
-    };
-    ("textDocument/linkedEditingRange") => {
-        $crate::request::LinkedEditingRange
-    };
-    ("textDocument/prepareCallHierarchy") => {
-        $crate::request::CallHierarchyPrepare
-    };
-    ("textDocument/prepareTypeHierarchy") => {
-        $crate::request::TypeHierarchyPrepare
-    };
-    ("textDocument/semanticTokens/full") => {
-        $crate::request::SemanticTokensFullRequest
-    };
-    ("textDocument/semanticTokens/full/delta") => {
-        $crate::request::SemanticTokensFullDeltaRequest
-    };
-    ("textDocument/semanticTokens/range") => {
-        $crate::request::SemanticTokensRangeRequest
-    };
-    ("textDocument/inlayHint") => {
-        $crate::request::InlayHintRequest
-    };
-    ("textDocument/inlineValue") => {
-        $crate::request::InlineValueRequest
-    };
-    ("textDocument/diagnostic") => {
-        $crate::request::DocumentDiagnosticRequest
-    };
-    ("workspace/diagnostic") => {
-        $crate::request::WorkspaceDiagnosticRequest
-    };
-    ("workspace/diagnostic/refresh") => {
-        $crate::request::WorkspaceDiagnosticRefresh
-    };
-    ("typeHierarchy/supertypes") => {
-        $crate::request::TypeHierarchySupertypes
-    };
-    ("typeHierarchy/subtypes") => {
-        $crate::request::TypeHierarchySubtypes
-    };
-    ("workspace/willCreateFiles") => {
-        $crate::request::WillCreateFiles
-    };
-    ("workspace/willRenameFiles") => {
-        $crate::request::WillRenameFiles
-    };
-    ("workspace/willDeleteFiles") => {
-        $crate::request::WillDeleteFiles
-    };
-    ("workspace/semanticTokens/refresh") => {
-        $crate::request::SemanticTokensRefresh
-    };
-    ("workspace/codeLens/refresh") => {
-        $crate::request::CodeLensRefresh
-    };
-    ("workspace/inlayHint/refresh") => {
-        $crate::request::InlayHintRefreshRequest
-    };
-    ("workspace/inlineValue/refresh") => {
-        $crate::request::InlineValueRefreshRequest
-    };
-    ("codeAction/resolve") => {
-        $crate::request::CodeActionResolveRequest
-    };
-    ("inlayHint/resolve") => {
-        $crate::request::InlayHintResolveRequest
-    };
-    ("window/showDocument") => {
-        $crate::request::ShowDocument
-    };
+    ("initialize") => { $crate::request::Initialize };
+    ("shutdown") => { $crate::request::Shutdown };
+    ("window/showMessageRequest") => { $crate::request::ShowMessageRequest };
+    ("client/registerCapability") => { $crate::request::RegisterCapability };
+    ("client/unregisterCapability") => { $crate::request::UnregisterCapability };
+    ("workspace/symbol") => { $crate::request::WorkspaceSymbolRequest };
+    ("workspaceSymbol/resolve") => { $crate::request::WorkspaceSymbolResolve };
+    ("workspace/executeCommand") => { $crate::request::ExecuteCommand };
+    ("textDocument/willSaveWaitUntil") => { $crate::request::WillSaveWaitUntil };
+    ("textDocument/completion") => { $crate::request::Completion };
+    ("completionItem/resolve") => { $crate::request::ResolveCompletionItem };
+    ("textDocument/hover") => { $crate::request::HoverRequest };
+    ("textDocument/signatureHelp") => { $crate::request::SignatureHelpRequest };
+    ("textDocument/declaration") => { $crate::request::GotoDeclaration };
+    ("textDocument/definition") => { $crate::request::GotoDefinition };
+    ("textDocument/references") => { $crate::request::References };
+    ("textDocument/documentHighlight") => { $crate::request::DocumentHighlightRequest };
+    ("textDocument/documentSymbol") => { $crate::request::DocumentSymbolRequest };
+    ("textDocument/codeAction") => { $crate::request::CodeActionRequest };
+    ("textDocument/codeLens") => { $crate::request::CodeLensRequest };
+    ("codeLens/resolve") => { $crate::request::CodeLensResolve };
+    ("textDocument/documentLink") => { $crate::request::DocumentLinkRequest };
+    ("documentLink/resolve") => { $crate::request::DocumentLinkResolve };
+    ("workspace/applyEdit") => { $crate::request::ApplyWorkspaceEdit };
+    ("textDocument/rangeFormatting") => { $crate::request::RangeFormatting };
+    ("textDocument/onTypeFormatting") => { $crate::request::OnTypeFormatting };
+    ("textDocument/formatting") => { $crate::request::Formatting };
+    ("textDocument/rename") => { $crate::request::Rename };
+    ("textDocument/documentColor") => { $crate::request::DocumentColor };
+    ("textDocument/colorPresentation") => { $crate::request::ColorPresentationRequest };
+    ("textDocument/foldingRange") => { $crate::request::FoldingRangeRequest };
+    ("textDocument/prepareRename") => { $crate::request::PrepareRenameRequest };
+    ("textDocument/implementation") => { $crate::request::GotoImplementation };
+    ("textDocument/typeDefinition") => { $crate::request::GotoTypeDefinition };
+    ("textDocument/selectionRange") => { $crate::request::SelectionRangeRequest };
+    ("workspace/workspaceFolders") => { $crate::request::WorkspaceFoldersRequest };
+    ("workspace/configuration") => { $crate::request::WorkspaceConfiguration };
+    ("window/workDoneProgress/create") => { $crate::request::WorkDoneProgressCreate };
+    ("callHierarchy/incomingCalls") => { $crate::request::CallHierarchyIncomingCalls };
+    ("callHierarchy/outgoingCalls") => { $crate::request::CallHierarchyOutgoingCalls };
+    ("textDocument/moniker") => { $crate::request::MonikerRequest };
+    ("textDocument/linkedEditingRange") => { $crate::request::LinkedEditingRange };
+    ("textDocument/prepareCallHierarchy") => { $crate::request::CallHierarchyPrepare };
+    ("textDocument/prepareTypeHierarchy") => { $crate::request::TypeHierarchyPrepare };
+    ("textDocument/semanticTokens/full") => { $crate::request::SemanticTokensFullRequest };
+    ("textDocument/semanticTokens/full/delta") => { $crate::request::SemanticTokensFullDeltaRequest };
+    ("textDocument/semanticTokens/range") => { $crate::request::SemanticTokensRangeRequest };
+    ("textDocument/inlayHint") => { $crate::request::InlayHintRequest };
+    ("textDocument/inlineValue") => { $crate::request::InlineValueRequest };
+    ("textDocument/diagnostic") => { $crate::request::DocumentDiagnosticRequest };
+    ("workspace/diagnostic") => { $crate::request::WorkspaceDiagnosticRequest };
+    ("workspace/diagnostic/refresh") => { $crate::request::WorkspaceDiagnosticRefresh };
+    ("typeHierarchy/supertypes") => { $crate::request::TypeHierarchySupertypes };
+    ("typeHierarchy/subtypes") => { $crate::request::TypeHierarchySubtypes };
+    ("workspace/willCreateFiles") => { $crate::request::WillCreateFiles };
+    ("workspace/willRenameFiles") => { $crate::request::WillRenameFiles };
+    ("workspace/willDeleteFiles") => { $crate::request::WillDeleteFiles };
+    ("workspace/semanticTokens/refresh") => { $crate::request::SemanticTokensRefresh };
+    ("workspace/codeLens/refresh") => { $crate::request::CodeLensRefresh };
+    ("workspace/inlayHint/refresh") => { $crate::request::InlayHintRefreshRequest };
+    ("workspace/inlineValue/refresh") => { $crate::request::InlineValueRefreshRequest };
+    ("codeAction/resolve") => { $crate::request::CodeActionResolveRequest };
+    ("inlayHint/resolve") => { $crate::request::InlayHintResolveRequest };
+    ("window/showDocument") => { $crate::request::ShowDocument };
 }
 
 /// The initialize request is sent as the first request from the client to the server.
@@ -1000,6 +868,7 @@ mod test {
     }
 
     #[test]
+    #[expect(clippy::cognitive_complexity)]
     fn check_macro_definitions() {
         check_macro!("initialize");
         check_macro!("shutdown");

@@ -7,91 +7,40 @@ pub trait Notification {
     const METHOD: &'static str;
 }
 
+#[rustfmt::skip]
 #[macro_export]
 macro_rules! lsp_notification {
-    ("$/cancelRequest") => {
-        $crate::notification::Cancel
-    };
-    ("$/setTrace") => {
-        $crate::notification::SetTrace
-    };
-    ("$/logTrace") => {
-        $crate::notification::LogTrace
-    };
-    ("initialized") => {
-        $crate::notification::Initialized
-    };
-    ("exit") => {
-        $crate::notification::Exit
-    };
+    ("$/cancelRequest") => { $crate::notification::Cancel };
+    ("$/setTrace") => { $crate::notification::SetTrace };
+    ("$/logTrace") => { $crate::notification::LogTrace };
+    ("initialized") => { $crate::notification::Initialized };
+    ("exit") => { $crate::notification::Exit };
 
-    ("window/showMessage") => {
-        $crate::notification::ShowMessage
-    };
-    ("window/logMessage") => {
-        $crate::notification::LogMessage
-    };
-    ("window/workDoneProgress/cancel") => {
-        $crate::notification::WorkDoneProgressCancel
-    };
+    ("window/showMessage") => { $crate::notification::ShowMessage };
+    ("window/logMessage") => { $crate::notification::LogMessage };
+    ("window/workDoneProgress/cancel") => { $crate::notification::WorkDoneProgressCancel };
 
-    ("telemetry/event") => {
-        $crate::notification::TelemetryEvent
-    };
+    ("telemetry/event") => { $crate::notification::TelemetryEvent };
 
-    ("textDocument/didOpen") => {
-        $crate::notification::DidOpenTextDocument
-    };
-    ("textDocument/didChange") => {
-        $crate::notification::DidChangeTextDocument
-    };
-    ("textDocument/willSave") => {
-        $crate::notification::WillSaveTextDocument
-    };
-    ("textDocument/didSave") => {
-        $crate::notification::DidSaveTextDocument
-    };
-    ("textDocument/didClose") => {
-        $crate::notification::DidCloseTextDocument
-    };
-    ("textDocument/publishDiagnostics") => {
-        $crate::notification::PublishDiagnostics
-    };
+    ("textDocument/didOpen") => { $crate::notification::DidOpenTextDocument };
+    ("textDocument/didChange") => { $crate::notification::DidChangeTextDocument };
+    ("textDocument/willSave") => { $crate::notification::WillSaveTextDocument };
+    ("textDocument/didSave") => { $crate::notification::DidSaveTextDocument };
+    ("textDocument/didClose") => { $crate::notification::DidCloseTextDocument };
+    ("textDocument/publishDiagnostics") => { $crate::notification::PublishDiagnostics };
 
-    ("notebookDocument/didOpen") => {
-        $crate::notification::DidOpenNotebookDocument
-    };
-    ("notebookDocument/didChange") => {
-        $crate::notification::DidChangeNotebookDocument
-    };
-    ("notebookDocument/didSave") => {
-        $crate::notification::DidSaveNotebookDocument
-    };
-    ("notebookDocument/didClose") => {
-        $crate::notification::DidCloseNotebookDocument
-    };
+    ("notebookDocument/didOpen") => { $crate::notification::DidOpenNotebookDocument };
+    ("notebookDocument/didChange") => { $crate::notification::DidChangeNotebookDocument };
+    ("notebookDocument/didSave") => { $crate::notification::DidSaveNotebookDocument };
+    ("notebookDocument/didClose") => { $crate::notification::DidCloseNotebookDocument };
 
-    ("workspace/didChangeConfiguration") => {
-        $crate::notification::DidChangeConfiguration
-    };
-    ("workspace/didChangeWatchedFiles") => {
-        $crate::notification::DidChangeWatchedFiles
-    };
-    ("workspace/didChangeWorkspaceFolders") => {
-        $crate::notification::DidChangeWorkspaceFolders
-    };
-    ("$/progress") => {
-        $crate::notification::Progress
-    };
-    ("workspace/didCreateFiles") => {
-        $crate::notification::DidCreateFiles
-    };
-    ("workspace/didRenameFiles") => {
-        $crate::notification::DidRenameFiles
-    };
-    ("workspace/didDeleteFiles") => {
-        $crate::notification::DidDeleteFiles
-    };
+    ("workspace/didChangeConfiguration") => { $crate::notification::DidChangeConfiguration };
+    ("workspace/didChangeWatchedFiles") => { $crate::notification::DidChangeWatchedFiles };
+    ("workspace/didChangeWorkspaceFolders") => { $crate::notification::DidChangeWorkspaceFolders };
+    ("$/progress") => { $crate::notification::Progress };
+    ("workspace/didCreateFiles") => { $crate::notification::DidCreateFiles };
+    ("workspace/didRenameFiles") => { $crate::notification::DidRenameFiles };
+    ("workspace/didDeleteFiles") => { $crate::notification::DidDeleteFiles };
 }
 
 /// The base protocol now offers support for request cancellation. To cancel a request,
