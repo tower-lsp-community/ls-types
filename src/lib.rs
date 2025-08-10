@@ -1,7 +1,7 @@
 //! Language Server Protocol (LSP) and Language Server Index Format (LSIF) types.
 //!
 //! Based on <https://microsoft.github.io/language-server-protocol/specification>
-
+#![allow(clippy::too_long_first_doc_paragraph)] // Docs mirrors LSP API Docs
 mod macros;
 
 pub mod error_codes;

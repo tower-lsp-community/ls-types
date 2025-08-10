@@ -1000,6 +1000,7 @@ mod test {
     }
 
     #[test]
+    #[expect(clippy::cognitive_complexity)]
     fn check_macro_definitions() {
         check_macro!("initialize");
         check_macro!("shutdown");
