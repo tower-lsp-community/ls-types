@@ -1,4 +1,8 @@
-use std::{hash::Hash, ops::Deref, str::FromStr};
+use std::{
+    hash::Hash,
+    ops::{Deref, DerefMut},
+    str::FromStr,
+};
 
 use serde::{Deserialize, Serialize, de::Error};
 
@@ -24,6 +28,12 @@ impl<'de> Deserialize<'de> for Uri {
         fluent_uri::Uri::<String>::parse(string)
             .map(Uri)
             .map_err(|err| Error::custom(err.to_string()))
+    }
+}
+
+impl From<fluent_uri::Uri<String>> for Uri {
+    fn from(uri: fluent_uri::Uri<String>) -> Self {
+        Self(uri)
     }
 }
 
@@ -60,6 +70,12 @@ impl Deref for Uri {
     }
 }
 
+impl DerefMut for Uri {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
 /*
     TOUCH-UP: `PartialEq`, `Eq` and `Hash` could all be derived
     if and when the respective implementations get merged upstream:
@@ -76,5 +92,19 @@ impl Eq for Uri {}
 impl Hash for Uri {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
         self.as_str().hash(state);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use fluent_uri::encoding::EStr;
+
+    use super::*;
+
+    #[test]
+    fn test_add_fragment() {
+        let mut uri = Uri::from_str("https://www.example.com").unwrap();
+        uri.set_fragment(Some(&EStr::new_or_panic("L11")));
+        assert_eq!(uri.as_str(), "https://www.example.com#L11");
     }
 }
