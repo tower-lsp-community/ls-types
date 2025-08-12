@@ -2549,6 +2549,24 @@ pub enum NumberOrString {
     String(String),
 }
 
+impl From<String> for NumberOrString {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl From<&str> for NumberOrString {
+    fn from(value: &str) -> Self {
+        value.to_string().into()
+    }
+}
+
+impl From<i32> for NumberOrString {
+    fn from(value: i32) -> Self {
+        Self::Number(value)
+    }
+}
+
 /// Position in a text document expressed as zero-based line and character offset.
 /// A position is between two characters like an `insert` cursor in a editor.
 #[derive(
