@@ -26,7 +26,7 @@
 
 ### Fixed
 
-- fix typo in WorkspaceClientCapabilities (#3)
+- fix typo in `WorkspaceClientCapabilities` (#3)
 - move `annotationId` from `DeleteFileOptions` to `DeleteFile` (#4)
 - fix typo in `ReferenceOptions` name (#8)
 - add `TextDocumentRegistrationOptions` struct (#10)

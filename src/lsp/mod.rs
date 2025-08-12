@@ -66,11 +66,11 @@ pub use workspace_diagnostic::*;
 pub use workspace_folders::*;
 pub use workspace_symbols::*;
 
-use serde::{Deserialize, Serialize, de::Error};
 use std::collections::HashMap;
 
-use crate::Uri;
-use crate::macros::lsp_enum;
+use serde::{Deserialize, Serialize, de::Error};
+
+use crate::{Uri, macros::lsp_enum};
 
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
 pub struct CancelParams {

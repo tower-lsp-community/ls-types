@@ -540,7 +540,7 @@ pub struct Diagnostic {
     #[cfg(feature = "proposed")]
     /// The diagnostic's message.
     ///
-    /// @since 3.18.0 - support for MarkupContent. This is guarded by the client
+    /// @since 3.18.0 - support for `MarkupContent`. This is guarded by the client
     /// capability `textDocument.diagnostic.markupMessageSupport`.
     pub message: OneOf<String, MarkupContent>,
 
@@ -563,7 +563,7 @@ pub struct Diagnostic {
 
 impl Diagnostic {
     #[must_use]
-    pub fn new(
+    pub const fn new(
         range: Range,
         severity: Option<DiagnosticSeverity>,
         code: Option<NumberOrString>,
@@ -587,7 +587,7 @@ impl Diagnostic {
     }
 
     #[must_use]
-    pub fn new_simple(range: Range, message: String) -> Self {
+    pub const fn new_simple(range: Range, message: String) -> Self {
         #[cfg(not(feature = "proposed"))]
         {
             Self::new(range, None, None, None, message, None, None)
@@ -599,7 +599,7 @@ impl Diagnostic {
     }
 
     #[must_use]
-    pub fn new_with_code_number(
+    pub const fn new_with_code_number(
         range: Range,
         severity: DiagnosticSeverity,
         code_number: i32,
