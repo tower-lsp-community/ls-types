@@ -40,6 +40,11 @@ pub fn fmt_pascal_case(f: &mut std::fmt::Formatter<'_>, name: &str) -> std::fmt:
     Ok(())
 }
 
+// [Enumerations] section in LSP specification suggests to keep unknown values
+// in enums and let them round trip.
+//
+// [Enumerations]: https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#enumerations
+//
 // ```
 // struct SpecificCode(i32);
 //

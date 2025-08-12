@@ -1,25 +1,11 @@
 use serde::{Deserialize, Serialize};
 
+use crate::lsp::TraceValue;
+
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
 pub struct SetTraceParams {
     /// The new value that should be assigned to the trace setting.
     pub value: TraceValue,
-}
-
-/// A `TraceValue` represents the level of verbosity with which the server systematically
-/// reports its execution trace using `LogTrace` notifications.
-///
-/// The initial trace value is set by the client at initialization and can be modified
-/// later using the `SetTrace` notification.
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub enum TraceValue {
-    /// The server should not send any `$/logTrace` notification
-    #[default]
-    Off,
-    /// The server should not add the 'verbose' field in the `LogTraceParams`
-    Messages,
-    Verbose,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
