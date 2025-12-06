@@ -33,6 +33,13 @@ pub struct DocumentSymbolClientCapabilities {
         deserialize_with = "TagSupport::deserialize_compat"
     )]
     pub tag_support: Option<TagSupport<SymbolTag>>,
+
+    /// The client supports an additional label presented in the UI when
+    /// registering a document symbol provider.
+    ///
+    /// @since 3.16.0
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub label_support: Option<bool>,
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize)]
