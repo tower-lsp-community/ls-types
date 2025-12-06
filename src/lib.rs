@@ -603,12 +603,6 @@ pub struct DeleteFileOptions {
     /// Ignore the operation if the file doesn't exist.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ignore_if_not_exists: Option<bool>,
-
-    /// An optional annotation identifier describing the operation.
-    ///
-    /// @since 3.16.0
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub annotation_id: Option<ChangeAnnotationIdentifier>,
 }
 
 /// Delete file operation
@@ -620,6 +614,12 @@ pub struct DeleteFile {
     /// Delete options.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub options: Option<DeleteFileOptions>,
+
+    /// An optional annotation identifier describing the operation.
+    ///
+    /// @since 3.16.0
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub annotation_id: Option<ChangeAnnotationIdentifier>,
 }
 
 /// A workspace edit represents changes to many resources managed in the workspace.
