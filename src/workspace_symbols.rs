@@ -103,3 +103,15 @@ pub enum WorkspaceSymbolResponse {
     Flat(Vec<SymbolInformation>),
     Nested(Vec<WorkspaceSymbol>),
 }
+
+impl From<Vec<SymbolInformation>> for WorkspaceSymbolResponse {
+    fn from(info: Vec<SymbolInformation>) -> Self {
+        Self::Flat(info)
+    }
+}
+
+impl From<Vec<WorkspaceSymbol>> for WorkspaceSymbolResponse {
+    fn from(symbols: Vec<WorkspaceSymbol>) -> Self {
+        Self::Nested(symbols)
+    }
+}
