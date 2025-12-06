@@ -124,6 +124,24 @@ pub enum NumberOrString {
     String(String),
 }
 
+impl From<String> for NumberOrString {
+    fn from(value: String) -> Self {
+        Self::String(value)
+    }
+}
+
+impl From<&str> for NumberOrString {
+    fn from(value: &str) -> Self {
+        value.to_string().into()
+    }
+}
+
+impl From<i32> for NumberOrString {
+    fn from(value: i32) -> Self {
+        Self::Number(value)
+    }
+}
+
 /* ----------------- Cancel support ----------------- */
 
 #[derive(Debug, Eq, PartialEq, Clone, Deserialize, Serialize)]
