@@ -41,7 +41,7 @@ pub struct WorkDoneProgressCancelParams {
 }
 
 /// Options to signal work done progress support in server capabilities.
-#[derive(Debug, Eq, PartialEq, Default, Deserialize, Serialize, Clone)]
+#[derive(Debug, Eq, PartialEq, Default, Deserialize, Serialize, Clone, Copy)]
 #[serde(rename_all = "camelCase")]
 pub struct WorkDoneProgressOptions {
     #[serde(skip_serializing_if = "Option::is_none")]

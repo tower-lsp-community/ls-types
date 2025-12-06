@@ -4,22 +4,23 @@ use serde::{Deserialize, Serialize};
 
 use serde_json::Value;
 
-use crate::{Range, Uri};
+use crate::{Range, Uri, macros::lsp_enum};
 
-#[derive(Eq, PartialEq, Clone, Copy, Deserialize, Serialize)]
+#[derive(Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct MessageType(i32);
+
 lsp_enum! {
-impl MessageType {
-    /// An error message.
-    pub const ERROR: MessageType = MessageType(1);
-    /// A warning message.
-    pub const WARNING: MessageType = MessageType(2);
-    /// An information message;
-    pub const INFO: MessageType = MessageType(3);
-    /// A log message.
-    pub const LOG: MessageType = MessageType(4);
-}
+    impl MessageType {
+        /// An error message.
+        const ERROR = 1;
+        /// A warning message.
+        const WARNING = 2;
+        /// An information message;
+        const INFO = 3;
+        /// A log message.
+        const LOG = 4;
+    }
 }
 
 /// Window specific client capabilities.

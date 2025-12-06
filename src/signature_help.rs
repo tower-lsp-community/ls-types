@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::{
     Documentation, MarkupKind, TextDocumentPositionParams, TextDocumentRegistrationOptions,
-    WorkDoneProgressOptions, WorkDoneProgressParams,
+    WorkDoneProgressOptions, WorkDoneProgressParams, macros::lsp_enum,
 };
 
 #[derive(Debug, Eq, PartialEq, Clone, Default, Deserialize, Serialize)]
@@ -83,18 +83,19 @@ pub struct SignatureHelpRegistrationOptions {
 }
 
 /// Signature help options.
-#[derive(Eq, PartialEq, Clone, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct SignatureHelpTriggerKind(i32);
+
 lsp_enum! {
-impl SignatureHelpTriggerKind {
-    /// Signature help was invoked manually by the user or by a command.
-    pub const INVOKED: SignatureHelpTriggerKind = SignatureHelpTriggerKind(1);
-    /// Signature help was triggered by a trigger character.
-    pub const TRIGGER_CHARACTER: SignatureHelpTriggerKind = SignatureHelpTriggerKind(2);
-    /// Signature help was triggered by the cursor moving or by the document content changing.
-    pub const CONTENT_CHANGE: SignatureHelpTriggerKind = SignatureHelpTriggerKind(3);
-}
+    impl SignatureHelpTriggerKind {
+        /// Signature help was invoked manually by the user or by a command.
+        const INVOKED = 1;
+        /// Signature help was triggered by a trigger character.
+        const TRIGGER_CHARACTER = 2;
+        /// Signature help was triggered by the cursor moving or by the document content changing.
+        const CONTENT_CHANGE = 3;
+    }
 }
 
 #[derive(Debug, Eq, PartialEq, Clone, Deserialize, Serialize)]

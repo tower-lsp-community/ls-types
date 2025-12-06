@@ -1,7 +1,7 @@
 use crate::{
     Command, LSPAny, Location, MarkupContent, Position, Range, StaticRegistrationOptions,
     TextDocumentIdentifier, TextDocumentRegistrationOptions, TextEdit, WorkDoneProgressOptions,
-    WorkDoneProgressParams,
+    WorkDoneProgressParams, macros::lsp_enum,
 };
 use serde::{Deserialize, Serialize};
 
@@ -238,17 +238,17 @@ impl From<MarkupContent> for InlayHintLabelPartTooltip {
 /// Inlay hint kinds.
 ///
 /// @since 3.17.0
-#[derive(Eq, PartialEq, Copy, Clone, Serialize, Deserialize)]
+#[derive(Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct InlayHintKind(i32);
-lsp_enum! {
-impl InlayHintKind {
-    /// An inlay hint that for a type annotation.
-    pub const TYPE: InlayHintKind = InlayHintKind(1);
 
-    /// An inlay hint that is for a parameter.
-    pub const PARAMETER: InlayHintKind = InlayHintKind(2);
-}
+lsp_enum! {
+    impl InlayHintKind {
+        /// An inlay hint that for a type annotation.
+        const TYPE = 1;
+        /// An inlay hint that is for a parameter.
+        const PARAMETER = 2;
+    }
 }
 
 /// Inlay hint client capabilities.

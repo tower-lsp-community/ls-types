@@ -1,6 +1,6 @@
 use crate::{
     Command, Diagnostic, PartialResultParams, Range, TextDocumentIdentifier,
-    WorkDoneProgressOptions, WorkDoneProgressParams, WorkspaceEdit,
+    WorkDoneProgressOptions, WorkDoneProgressParams, WorkspaceEdit, macros::lsp_enum,
 };
 use serde::{Deserialize, Serialize};
 
@@ -307,20 +307,21 @@ pub struct CodeActionDisabled {
 /// The reason why code actions were requested.
 ///
 /// @since 3.17.0
-#[derive(Eq, PartialEq, Clone, Copy, Deserialize, Serialize)]
+#[derive(Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct CodeActionTriggerKind(i32);
-lsp_enum! {
-impl CodeActionTriggerKind {
-    /// Code actions were explicitly requested by the user or by an extension.
-    pub const INVOKED: CodeActionTriggerKind = CodeActionTriggerKind(1);
 
-    /// Code actions were requested automatically.
-    ///
-    /// This typically happens when current selection in a file changes, but can
-    /// also be triggered when file content changes.
-    pub const AUTOMATIC: CodeActionTriggerKind = CodeActionTriggerKind(2);
-}
+lsp_enum! {
+    impl CodeActionTriggerKind {
+        /// Code actions were explicitly requested by the user or by an extension.
+        const INVOKED = 1;
+
+        /// Code actions were requested automatically.
+        ///
+        /// This typically happens when current selection in a file changes, but can
+        /// also be triggered when file content changes.
+        const AUTOMATIC = 2;
+    }
 }
 
 /// Contains additional diagnostic information about the context in which

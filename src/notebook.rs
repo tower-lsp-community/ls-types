@@ -1,7 +1,6 @@
 use serde::{Deserialize, Serialize};
-use serde_repr::{Deserialize_repr, Serialize_repr};
 
-use crate::{LSPObject, Uri};
+use crate::{LSPObject, Uri, macros::lsp_enum};
 
 pub use notification_params::*;
 
@@ -62,13 +61,16 @@ pub struct ExecutionSummary {
     pub success: Option<bool>,
 }
 
-#[derive(Debug, Eq, PartialEq, Clone, Serialize_repr, Deserialize_repr)]
-#[repr(u8)]
-pub enum NotebookCellKind {
-    /// A markup-cell is formatted source that is used for display.
-    Markup = 1,
-    /// A code-cell is source code.
-    Code = 2,
+#[derive(Clone, PartialEq, Eq, Deserialize, Serialize)]
+pub struct NotebookCellKind(i32);
+
+lsp_enum! {
+    impl NotebookCellKind {
+        /// A markup-cell is formatted source that is used for display.
+        const MARKUP = 1;
+        /// A code-cell is source code.
+        const CODE = 2;
+    }
 }
 
 /// Capabilities specific to the notebook document support.

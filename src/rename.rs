@@ -1,4 +1,7 @@
-use crate::{Range, TextDocumentPositionParams, WorkDoneProgressOptions, WorkDoneProgressParams};
+use crate::{
+    Range, TextDocumentPositionParams, WorkDoneProgressOptions, WorkDoneProgressParams,
+    macros::lsp_enum,
+};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Eq, PartialEq, Clone, Deserialize, Serialize)]
@@ -61,15 +64,16 @@ pub struct RenameClientCapabilities {
     pub honors_change_annotations: Option<bool>,
 }
 
-#[derive(Eq, PartialEq, Copy, Clone, Serialize, Deserialize)]
+#[derive(Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct PrepareSupportDefaultBehavior(i32);
+
 lsp_enum! {
-impl PrepareSupportDefaultBehavior {
-    /// The client's default behavior is to select the identifier
-    /// according the to language's syntax rule
-    pub const IDENTIFIER: PrepareSupportDefaultBehavior = PrepareSupportDefaultBehavior(1);
-}
+    impl PrepareSupportDefaultBehavior {
+        /// The client's default behavior is to select the identifier
+        /// according the to language's syntax rule
+        const IDENTIFIER = 1;
+    }
 }
 
 #[derive(Debug, Eq, PartialEq, Clone, Deserialize, Serialize)]

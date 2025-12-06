@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 
+use crate::macros::lsp_enum;
 use crate::{
     Command, Documentation, MarkupKind, PartialResultParams, TagSupport,
     TextDocumentPositionParams, TextDocumentRegistrationOptions, TextEdit, WorkDoneProgressOptions,
@@ -11,48 +12,50 @@ use serde_json::Value;
 use std::fmt::Debug;
 
 /// Defines how to interpret the insert text in a completion item
-#[derive(Eq, PartialEq, Clone, Copy, Serialize, Deserialize)]
+#[derive(Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct InsertTextFormat(i32);
+
 lsp_enum! {
-impl InsertTextFormat {
-    pub const PLAIN_TEXT: InsertTextFormat = InsertTextFormat(1);
-    pub const SNIPPET: InsertTextFormat = InsertTextFormat(2);
-}
+    impl InsertTextFormat {
+        const PLAIN_TEXT = 1;
+        const SNIPPET = 2;
+    }
 }
 
 /// The kind of a completion entry.
-#[derive(Eq, PartialEq, Clone, Copy, Serialize, Deserialize)]
+#[derive(Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct CompletionItemKind(i32);
+
 lsp_enum! {
-impl CompletionItemKind {
-    pub const TEXT: CompletionItemKind = CompletionItemKind(1);
-    pub const METHOD: CompletionItemKind = CompletionItemKind(2);
-    pub const FUNCTION: CompletionItemKind = CompletionItemKind(3);
-    pub const CONSTRUCTOR: CompletionItemKind = CompletionItemKind(4);
-    pub const FIELD: CompletionItemKind = CompletionItemKind(5);
-    pub const VARIABLE: CompletionItemKind = CompletionItemKind(6);
-    pub const CLASS: CompletionItemKind = CompletionItemKind(7);
-    pub const INTERFACE: CompletionItemKind = CompletionItemKind(8);
-    pub const MODULE: CompletionItemKind = CompletionItemKind(9);
-    pub const PROPERTY: CompletionItemKind = CompletionItemKind(10);
-    pub const UNIT: CompletionItemKind = CompletionItemKind(11);
-    pub const VALUE: CompletionItemKind = CompletionItemKind(12);
-    pub const ENUM: CompletionItemKind = CompletionItemKind(13);
-    pub const KEYWORD: CompletionItemKind = CompletionItemKind(14);
-    pub const SNIPPET: CompletionItemKind = CompletionItemKind(15);
-    pub const COLOR: CompletionItemKind = CompletionItemKind(16);
-    pub const FILE: CompletionItemKind = CompletionItemKind(17);
-    pub const REFERENCE: CompletionItemKind = CompletionItemKind(18);
-    pub const FOLDER: CompletionItemKind = CompletionItemKind(19);
-    pub const ENUM_MEMBER: CompletionItemKind = CompletionItemKind(20);
-    pub const CONSTANT: CompletionItemKind = CompletionItemKind(21);
-    pub const STRUCT: CompletionItemKind = CompletionItemKind(22);
-    pub const EVENT: CompletionItemKind = CompletionItemKind(23);
-    pub const OPERATOR: CompletionItemKind = CompletionItemKind(24);
-    pub const TYPE_PARAMETER: CompletionItemKind = CompletionItemKind(25);
-}
+    impl CompletionItemKind {
+        const TEXT = 1;
+        const METHOD = 2;
+        const FUNCTION = 3;
+        const CONSTRUCTOR = 4;
+        const FIELD = 5;
+        const VARIABLE = 6;
+        const CLASS = 7;
+        const INTERFACE = 8;
+        const MODULE = 9;
+        const PROPERTY = 10;
+        const UNIT = 11;
+        const VALUE = 12;
+        const ENUM = 13;
+        const KEYWORD = 14;
+        const SNIPPET = 15;
+        const COLOR = 16;
+        const FILE = 17;
+        const REFERENCE = 18;
+        const FOLDER = 19;
+        const ENUM_MEMBER = 20;
+        const CONSTANT = 21;
+        const STRUCT = 22;
+        const EVENT = 23;
+        const OPERATOR = 24;
+        const TYPE_PARAMETER = 25;
+    }
 }
 
 #[derive(Debug, Eq, PartialEq, Clone, Default, Deserialize, Serialize)]
@@ -143,36 +146,38 @@ pub struct InsertTextModeSupport {
 /// item insertion.
 ///
 /// @since 3.16.0
-#[derive(Eq, PartialEq, Clone, Copy, Serialize, Deserialize)]
+#[derive(Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct InsertTextMode(i32);
+
 lsp_enum! {
-impl InsertTextMode {
-    /// The insertion or replace strings is taken as it is. If the
-    /// value is multi line the lines below the cursor will be
-    /// inserted using the indentation defined in the string value.
-    /// The client will not apply any kind of adjustments to the
-    /// string.
-    pub const AS_IS: InsertTextMode = InsertTextMode(1);
+    impl InsertTextMode {
+        /// The insertion or replace strings is taken as it is. If the
+        /// value is multi line the lines below the cursor will be
+        /// inserted using the indentation defined in the string value.
+        /// The client will not apply any kind of adjustments to the
+        /// string.
+        const AS_IS = 1;
 
-    /// The editor adjusts leading whitespace of new lines so that
-    /// they match the indentation up to the cursor of the line for
-    /// which the item is accepted.
-    ///
-    /// Consider a line like this: <2tabs><cursor><3tabs>foo. Accepting a
-    /// multi line completion item is indented using 2 tabs all
-    /// following lines inserted will be indented using 2 tabs as well.
-    pub const ADJUST_INDENTATION: InsertTextMode = InsertTextMode(2);
-}
+        /// The editor adjusts leading whitespace of new lines so that
+        /// they match the indentation up to the cursor of the line for
+        /// which the item is accepted.
+        ///
+        /// Consider a line like this: `<2tabs><cursor><3tabs>foo`. Accepting a
+        /// multi line completion item is indented using 2 tabs all
+        /// following lines inserted will be indented using 2 tabs as well.
+        const ADJUST_INDENTATION = 2;
+    }
 }
 
-#[derive(Eq, PartialEq, Clone, Deserialize, Serialize)]
+#[derive(Clone, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct CompletionItemTag(i32);
+
 lsp_enum! {
-impl CompletionItemTag {
-    pub const DEPRECATED: CompletionItemTag = CompletionItemTag(1);
-}
+    impl CompletionItemTag {
+        const DEPRECATED = 1;
+    }
 }
 
 #[derive(Debug, Eq, PartialEq, Clone, Default, Deserialize, Serialize)]
@@ -390,15 +395,16 @@ pub struct CompletionContext {
 }
 
 /// How a completion was triggered.
-#[derive(Eq, PartialEq, Clone, Copy, Deserialize, Serialize)]
+#[derive(Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct CompletionTriggerKind(i32);
+
 lsp_enum! {
-impl CompletionTriggerKind {
-    pub const INVOKED: CompletionTriggerKind = CompletionTriggerKind(1);
-    pub const TRIGGER_CHARACTER: CompletionTriggerKind = CompletionTriggerKind(2);
-    pub const TRIGGER_FOR_INCOMPLETE_COMPLETIONS: CompletionTriggerKind = CompletionTriggerKind(3);
-}
+    impl CompletionTriggerKind {
+        const INVOKED = 1;
+        const TRIGGER_CHARACTER = 2;
+        const TRIGGER_FOR_INCOMPLETE_COMPLETIONS = 3;
+    }
 }
 
 /// Represents a collection of [completion items](#CompletionItem) to be presented
