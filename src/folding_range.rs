@@ -118,7 +118,9 @@ pub enum FoldingRangeKind {
 #[derive(Debug, Eq, PartialEq, Clone, Default, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct FoldingRange {
-    /// The zero-based line number from where the folded range starts.
+    /// The zero-based start line of the range to fold. The folded area starts
+    /// after the line's last character. To be valid, the end must be zero or
+    /// larger and smaller than the number of lines in the document.
     pub start_line: u32,
 
     /// The zero-based character offset from where the folded range starts. If
@@ -126,7 +128,9 @@ pub struct FoldingRange {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub start_character: Option<u32>,
 
-    /// The zero-based line number where the folded range ends.
+    /// The zero-based end line of the range to fold. The folded area ends with
+    /// the line's last character. To be valid, the end must be zero or larger
+    /// and smaller than the number of lines in the document.
     pub end_line: u32,
 
     /// The zero-based character offset before the folded range ends. If not
