@@ -2002,6 +2002,15 @@ pub struct DocumentSymbolOptions {
     pub work_done_progress_options: WorkDoneProgressOptions,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct DocumentSymbolRegistrationOptions {
+    #[serde(flatten)]
+    text_document_registration_options: TextDocumentRegistrationOptions,
+    #[serde(flatten)]
+    document_symbol_options: DocumentSymbolOptions,
+}
+
 #[derive(Debug, Eq, PartialEq, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ReferencesOptions {
