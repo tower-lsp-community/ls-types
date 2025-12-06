@@ -3,7 +3,7 @@ use serde_json::Value;
 
 use crate::{
     Command, DynamicRegistrationClientCapabilities, PartialResultParams, Range,
-    TextDocumentIdentifier, WorkDoneProgressParams,
+    TextDocumentIdentifier, TextDocumentRegistrationOptions, WorkDoneProgressParams,
 };
 
 pub type CodeLensClientCapabilities = DynamicRegistrationClientCapabilities;
@@ -63,4 +63,14 @@ pub struct CodeLensWorkspaceClientCapabilities {
     /// change that requires such a calculation.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub refresh_support: Option<bool>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CodeLensRegistrationOptions {
+    #[serde(flatten)]
+    pub text_document_registration_options: TextDocumentRegistrationOptions,
+
+    #[serde(flatten)]
+    pub code_lens_options: CodeLensOptions,
 }
