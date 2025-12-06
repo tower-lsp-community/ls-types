@@ -1780,7 +1780,7 @@ pub struct ServerCapabilities {
 
     /// The server provides find references support.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub references_provider: Option<OneOf<bool, ReferencesOptions>>,
+    pub references_provider: Option<OneOf<bool, ReferenceOptions>>,
 
     /// The server provides document highlight support.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -2013,7 +2013,7 @@ pub struct DocumentSymbolRegistrationOptions {
 
 #[derive(Debug, Eq, PartialEq, Clone, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ReferencesOptions {
+pub struct ReferenceOptions {
     #[serde(flatten)]
     pub work_done_progress_options: WorkDoneProgressOptions,
 }
