@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+## [0.0.2] - 2025-12-07
+
+[0.0.2]: https://github.com/tower-lsp-community/ls-types/releases/tag/v0.0.2
+
+## Fixed
+
+- compile with feature proposed enabled
+
 ## [0.0.1] - 2025-12-07
 
 [0.0.1]: https://github.com/tower-lsp-community/ls-types/releases/tag/v0.0.1

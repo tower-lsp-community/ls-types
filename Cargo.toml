@@ -1,6 +1,6 @@
 [package]
 name = "ls-types"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2024"
 
 description = "Types for the Language Server Protocol specification"
@@ -38,3 +38,5 @@ cargo = { level = "warn", priority = -1 }
 
 dbg_macro = "warn"
 todo = "warn"
+
+too_long_first_doc_paragraph = "allow"

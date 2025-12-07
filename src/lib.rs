@@ -1498,7 +1498,7 @@ pub struct GeneralClientCapabilities {
     /// servers can assume that the client supports UTF-16. UTF-16 is
     /// therefore a mandatory encoding.
     ///
-    /// If omitted it defaults to ['utf-16'].
+    /// If omitted it defaults to `['utf-16']`.
     ///
     /// Implementation considerations: since the conversion from one encoding
     /// into another requires the content of the file / line the conversion
@@ -1524,7 +1524,7 @@ pub struct StaleRequestSupportClientCapabilities {
 
     /// The list of requests for which the client
     /// will retry the request if it receives a
-    /// response with error code `ContentModified``
+    /// response with error code `ContentModified`
     pub retry_on_content_modified: Vec<String>,
 }
 

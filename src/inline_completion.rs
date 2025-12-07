@@ -1,6 +1,6 @@
 use crate::{
     Command, InsertTextFormat, Range, StaticRegistrationOptions, TextDocumentPositionParams,
-    TextDocumentRegistrationOptions, WorkDoneProgressOptions, WorkDoneProgressParams,
+    TextDocumentRegistrationOptions, WorkDoneProgressOptions, WorkDoneProgressParams, lsp_enum,
 };
 use serde::{Deserialize, Serialize};
 
@@ -60,16 +60,17 @@ pub struct InlineCompletionParams {
 /// @since 3.18.0
 #[derive(Eq, PartialEq, Clone, Copy, Deserialize, Serialize)]
 pub struct InlineCompletionTriggerKind(i32);
-lsp_enum! {
-impl InlineCompletionTriggerKind {
-    /// Completion was triggered explicitly by a user gesture.
-    /// Return multiple completion items to enable cycling through them.
-    pub const Invoked: InlineCompletionTriggerKind = InlineCompletionTriggerKind(1);
 
-    /// Completion was triggered automatically while editing.
-    /// It is sufficient to return a single completion item in this case.
-    pub const Automatic: InlineCompletionTriggerKind = InlineCompletionTriggerKind(2);
-}
+lsp_enum! {
+    impl InlineCompletionTriggerKind {
+        /// Completion was triggered explicitly by a user gesture.
+        /// Return multiple completion items to enable cycling through them.
+        const INVOKED = 1;
+
+        /// Completion was triggered automatically while editing.
+        /// It is sufficient to return a single completion item in this case.
+        const AUTOMATIC = 2;
+    }
 }
 
 /// Describes the currently selected completion item.
