@@ -108,7 +108,7 @@ pub struct DocumentSymbol {
     pub selection_range: Range,
     /// Children of this symbol, e.g. properties of a class.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub children: Option<Vec<DocumentSymbol>>,
+    pub children: Option<Vec<Self>>,
 }
 
 /// Represents information about programming constructs like variables, classes,

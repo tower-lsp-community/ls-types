@@ -82,5 +82,5 @@ pub struct SelectionRange {
 
     /// The parent selection range containing this range.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub parent: Option<Box<SelectionRange>>,
+    pub parent: Option<Box<Self>>,
 }

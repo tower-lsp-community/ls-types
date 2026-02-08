@@ -54,7 +54,7 @@ pub struct RangeBasedDocumentSymbol {
     pub id: Id,
     #[serde(default = "Default::default")]
     #[serde(skip_serializing_if = "Vec::is_empty")]
-    pub children: Vec<RangeBasedDocumentSymbol>,
+    pub children: Vec<Self>,
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
