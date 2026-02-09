@@ -1,14 +1,28 @@
+[workspace]
+members = [
+    ".",
+    "xtask",
+]
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+[workspace.lints.rustdoc]
+all = "warn"
+[workspace.lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }
+cargo = { level = "warn", priority = -1 }
+
+dbg_macro = "warn"
+todo = "warn"
+
 [package]
 name = "ls-types"
 version = "0.0.3"
 edition = "2024"
 
 description = "Types for the Language Server Protocol specification"
-authors = [
-  "Markus Westerlind <marwes91@gmail.com>",
-  "Bruno Medeiros <bruno.do.medeiros@gmail.com>",
-  "Milo Moisson <milo@wiro.world>"
-]
+authors = ["Milo Moisson <milo@wiro.world>"]
 repository = "https://github.com/tower-lsp-community/ls-types"
 keywords = ["language-server", "lsp", "lsif"]
 categories = ["network-programming"]
@@ -27,17 +41,5 @@ default = []
 # NOTE: no semver compatibility is guaranteed for types enabled by this feature.
 proposed = []
 
-[lints.rust]
-unsafe_code = "forbid"
-[lints.rustdoc]
-all = "warn"
-[lints.clippy]
-pedantic = { level = "warn", priority = -1 }
-nursery = { level = "warn", priority = -1 }
-cargo = { level = "warn", priority = -1 }
-
-dbg_macro = "warn"
-todo = "warn"
-
-too_long_first_doc_paragraph = "allow"
-use_self = "allow"
+[lints]
+workspace = true

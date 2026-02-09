@@ -1,6 +1,4 @@
 target/
-Cargo.lock
 
-/.settings/
-/.project
-/.vscode
+/.vscode/
+/.helix/
