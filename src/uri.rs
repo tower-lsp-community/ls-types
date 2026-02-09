@@ -30,7 +30,7 @@ impl<'de> Deserialize<'de> for Uri {
         let string = String::deserialize(deserializer)?;
         fluent_uri::Uri::<String>::parse(string)
             .map(Uri)
-            .map_err(|err| Error::custom(err.to_string()))
+            .map_err(|(err, _s)| Error::custom(err.to_string()))
     }
 }
 
@@ -53,7 +53,7 @@ impl PartialOrd for Uri {
 }
 
 impl FromStr for Uri {
-    type Err = fluent_uri::error::ParseError;
+    type Err = fluent_uri::ParseError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         // TOUCH-UP:
@@ -172,7 +172,7 @@ impl Uri {
     /// e.g. `Uri("file:///etc/passwd")` becomes `PathBuf("/etc/passwd")`
     #[must_use]
     pub fn to_file_path(&self) -> Option<Cow<'_, Path>> {
-        let path_str = self.path().decode().into_string_lossy();
+        let path_str = self.path().decode().to_string_lossy();
         if path_str.is_empty() {
             return None;
         }
@@ -252,7 +252,7 @@ impl Uri {
 mod tests {
     use super::*;
 
-    use fluent_uri::encoding::EStr;
+    use fluent_uri::pct_enc::EStr;
     use std::path::{Path, PathBuf};
     use std::str::FromStr;
 
