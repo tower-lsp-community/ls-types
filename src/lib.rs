@@ -2555,7 +2555,8 @@ pub enum MarkupKind {
 /// Here is an example how such a string can be constructed using JavaScript / TypeScript:
 ///
 /// ```
-/// let markdown: MarkupContent = {
+/// # use ls_types::{MarkupContent, MarkupKind};
+/// let markdown = MarkupContent {
 ///     kind: MarkupKind::Markdown,
 ///     value: [
 ///         "# Header",
