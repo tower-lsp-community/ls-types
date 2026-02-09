@@ -129,6 +129,7 @@ pub struct CodeActionParams {
 /// Response for `CodeActionRequest`
 pub type CodeActionResponse = Vec<CodeActionOrCommand>;
 
+#[expect(clippy::large_enum_variant)]
 #[derive(Debug, Clone, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum CodeActionOrCommand {

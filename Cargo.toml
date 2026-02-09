@@ -1,6 +1,6 @@
 [package]
 name = "ls-types"
-version = "0.0.2"
+version = "0.0.3"
 edition = "2024"
 
 description = "Types for the Language Server Protocol specification"
@@ -40,3 +40,4 @@ dbg_macro = "warn"
 todo = "warn"
 
 too_long_first_doc_paragraph = "allow"
+use_self = "allow"

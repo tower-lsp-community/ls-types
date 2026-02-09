@@ -212,6 +212,7 @@ impl SemanticToken {
         Ok(Option::<Wrapper>::deserialize(deserializer)?.map(|wrapper| wrapper.tokens))
     }
 
+    #[expect(clippy::ref_option)]
     fn serialize_tokens_opt<S>(data: &Option<Vec<Self>>, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,

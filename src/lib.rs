@@ -2554,7 +2554,7 @@ pub enum MarkupKind {
 ///
 /// Here is an example how such a string can be constructed using JavaScript / TypeScript:
 ///
-/// ```ignore
+/// ```
 /// let markdown: MarkupContent = {
 ///     kind: MarkupKind::Markdown,
 ///     value: [

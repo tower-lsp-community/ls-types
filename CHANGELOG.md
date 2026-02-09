@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+## [0.0.3] - 2025-12-07
+
+### Changed
+
+- bumped `fluent_uri` to `v0.4.x`
+
+[0.0.3]: https://github.com/tower-lsp-community/ls-types/releases/tag/v0.0.3
+
 ## [0.0.2] - 2025-12-07
 
 [0.0.2]: https://github.com/tower-lsp-community/ls-types/releases/tag/v0.0.2
