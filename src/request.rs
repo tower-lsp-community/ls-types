@@ -662,10 +662,8 @@ impl Request for PrepareRenameRequest {
 }
 
 #[derive(Debug)]
-#[cfg(feature = "proposed")]
 pub enum InlineCompletionRequest {}
 
-#[cfg(feature = "proposed")]
 impl Request for InlineCompletionRequest {
     type Params = crate::InlineCompletionParams;
     type Result = Option<crate::InlineCompletionResponse>;
@@ -1069,8 +1067,4 @@ mod test {
         check_macro!("typeHierarchy/supertypes");
         check_macro!("workspaceSymbol/resolve");
     }
-
-    #[test]
-    #[cfg(feature = "proposed")]
-    fn check_proposed_macro_definitions() {}
 }

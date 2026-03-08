@@ -25,7 +25,7 @@ serde = { version = "1", features = ["derive"] }
 default = []
 # Enables proposed LSP extensions.
 # NOTE: no semver compatibility is guaranteed for types enabled by this feature.
-proposed = []
+# proposed = []
 
 [lints.rust]
 unsafe_code = "forbid"

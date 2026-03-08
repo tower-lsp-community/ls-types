@@ -407,8 +407,4 @@ mod test {
         check_macro!("workspace/didRenameFiles");
         check_macro!("workspace/didDeleteFiles");
     }
-
-    #[test]
-    #[cfg(feature = "proposed")]
-    fn check_proposed_macro_definitions() {}
 }

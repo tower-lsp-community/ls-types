@@ -64,9 +64,7 @@ pub use inlay_hint::*;
 mod inline_value;
 pub use inline_value::*;
 
-#[cfg(feature = "proposed")]
 mod inline_completion;
-#[cfg(feature = "proposed")]
 pub use inline_completion::*;
 
 mod moniker;
@@ -1424,7 +1422,6 @@ pub struct TextDocumentClientCapabilities {
     ///
     /// @since 3.18.0
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[cfg(feature = "proposed")]
     pub inline_completion: Option<InlineCompletionClientCapabilities>,
 }
 
@@ -1458,7 +1455,6 @@ pub struct ClientCapabilities {
     ///
     /// See <https://clangd.llvm.org/extensions.html#utf-8-offsets>.
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[cfg(feature = "proposed")]
     pub offset_encoding: Option<Vec<String>>,
 
     /// Experimental client capabilities.
@@ -1571,7 +1567,6 @@ pub struct InitializeResult {
     ///
     /// See <https://clangd.llvm.org/extensions.html#utf-8-offsets>.
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[cfg(feature = "proposed")]
     pub offset_encoding: Option<String>,
 }
 
@@ -1900,7 +1895,6 @@ pub struct ServerCapabilities {
     ///
     /// @since 3.18.0
     #[serde(skip_serializing_if = "Option::is_none")]
-    #[cfg(feature = "proposed")]
     pub inline_completion_provider: Option<OneOf<bool, InlineCompletionOptions>>,
 
     /// Experimental server capabilities.
