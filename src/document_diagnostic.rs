@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 use crate::{
     Diagnostic, PartialResultParams, StaticRegistrationOptions, TextDocumentIdentifier,
     TextDocumentRegistrationOptions, Uri, WorkDoneProgressOptions, WorkDoneProgressParams,
+    macros::lsp_enum,
 };
 
 /// Client capabilities specific to diagnostic pull requests.
@@ -23,6 +24,53 @@ pub struct DiagnosticClientCapabilities {
     /// Whether the clients supports related documents for document diagnostic pulls.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub related_document_support: Option<bool>,
+
+    /// Whether the clients accepts diagnostics with related information.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub related_information: Option<bool>,
+
+    /// Client supports the tag property to provide meta data about a diagnostic.
+    /// Clients supporting tags have to handle unknown tags gracefully.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tag_support: Option<ClientDiagnosticsTagOptions>,
+
+    /// Client supports a codeDescription property.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub code_description_support: Option<bool>,
+
+    /// Whether code action supports the `data` property which is preserved between a
+    /// `textDocument/publishDiagnostics` and `textDocument/codeAction` request.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub data_support: Option<bool>,
+}
+
+/// @since 3.18.0
+#[derive(Debug, Eq, PartialEq, Clone, Default, Deserialize, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ClientDiagnosticsTagOptions {
+    /// The tags supported by the client.
+    value_set: Vec<DiagnosticTag>,
+}
+
+/// The diagnostic tags.
+///
+/// @since 3.15.0
+#[derive(Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
+#[serde(transparent)]
+pub struct DiagnosticTag(u32);
+
+lsp_enum! {
+    impl DiagnosticTag {
+        /// Unused or unnecessary code.
+        ///
+        /// Clients are allowed to render diagnostics with this tag faded out
+        /// instead of having an error squiggle.
+        const UNNECESSARY = 1;
+        /// Deprecated or obsolete code.
+        ///
+        /// Clients are allowed to rendered diagnostics with this tag strike through.
+        const DEPRECATED = 2;
+    }
 }
 
 /// Diagnostic options.
