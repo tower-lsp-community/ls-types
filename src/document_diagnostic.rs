@@ -3,9 +3,9 @@ use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    Diagnostic, PartialResultParams, StaticRegistrationOptions, TextDocumentIdentifier,
-    TextDocumentRegistrationOptions, Uri, WorkDoneProgressOptions, WorkDoneProgressParams,
-    macros::lsp_enum,
+    Diagnostic, DiagnosticTag, PartialResultParams, StaticRegistrationOptions,
+    TextDocumentIdentifier, TextDocumentRegistrationOptions, Uri, WorkDoneProgressOptions,
+    WorkDoneProgressParams,
 };
 
 /// Client capabilities specific to diagnostic pull requests.
@@ -50,27 +50,6 @@ pub struct DiagnosticClientCapabilities {
 pub struct ClientDiagnosticsTagOptions {
     /// The tags supported by the client.
     value_set: Vec<DiagnosticTag>,
-}
-
-/// The diagnostic tags.
-///
-/// @since 3.15.0
-#[derive(Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
-#[serde(transparent)]
-pub struct DiagnosticTag(u32);
-
-lsp_enum! {
-    impl DiagnosticTag {
-        /// Unused or unnecessary code.
-        ///
-        /// Clients are allowed to render diagnostics with this tag faded out
-        /// instead of having an error squiggle.
-        const UNNECESSARY = 1;
-        /// Deprecated or obsolete code.
-        ///
-        /// Clients are allowed to rendered diagnostics with this tag strike through.
-        const DEPRECATED = 2;
-    }
 }
 
 /// Diagnostic options.
