@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.0.5] - 2026-03-08
+
+Re-release v0.0.4 without the large specification artefact.
+
 ## [0.0.4] - 2026-03-08
 
 ### Changed
