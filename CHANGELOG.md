@@ -2,6 +2,20 @@
 
 ## [Unreleased]
 
+## [0.0.4] - 2026-03-08
+
+### Changed
+
+- add DiagnosticClientCapabilities missing fields (#32)
+
+  This includes the addition of `ClientDiagnosticsTagOptions` and `DiagnosticTag`.
+
+### Removed
+
+- removed `proposed` feature flag.
+
+  The flag was only applied to a handful of v3.18 items.
+
 ## [0.0.3] - 2025-12-07
 
 ### Changed
