@@ -1,5 +1,15 @@
 use serde::{Deserialize, Serialize};
 
+pub type LSPAny = crate::Todo;
+
+pub struct SelectionRange {
+    /// The {@link Range range} of this selection range.
+    // pub range: crate::generated::Range,
+    pub range: crate::Todo,
+    /// The parent selection range containing this range. Therefore `parent.range` must contain `this.range`.
+    pub parent: Option<Box<SelectionRange>>,
+}
+
 #[derive(Debug, PartialEq, Eq, Default, Deserialize, Serialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct WorkDoneProgressBegin {

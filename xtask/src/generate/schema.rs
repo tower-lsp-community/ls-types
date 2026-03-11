@@ -4,9 +4,8 @@
 
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-use smol_str::SmolStr;
 
-use crate::target;
+use crate::generate::target;
 
 #[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -22,25 +21,25 @@ pub struct MetaModel {
 #[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct MetaData {
-    pub version: SmolStr,
+    pub version: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Request {
-    pub method: SmolStr,
-    pub type_name: SmolStr,
-    pub result: Result,
+    pub method: String,
+    pub type_name: String,
+    pub result: Type,
     pub message_direction: MessageDirection,
-    pub client_capability: Option<SmolStr>,
-    pub server_capability: Option<SmolStr>,
+    pub client_capability: Option<String>,
+    pub server_capability: Option<String>,
     pub params: Option<Type>,
     pub partial_result: Option<Type>,
     pub registration_options: Option<RegistrationOptions>,
-    pub documentation: Option<SmolStr>,
-    pub since: Option<SmolStr>,
+    pub documentation: Option<String>,
+    pub since: Option<String>,
     pub proposed: Option<bool>,
-    pub registration_method: Option<SmolStr>,
+    pub registration_method: Option<String>,
     pub error_data: Option<Type>,
 }
 
@@ -54,95 +53,69 @@ pub enum MessageDirection {
 
 #[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Result {
-    pub kind: SmolStr,
-    #[serde(default)]
-    pub items: Vec<Item>,
-    pub element: Option<Type>,
-    pub name: Option<SmolStr>,
-}
-
-#[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Item {
-    pub kind: SmolStr,
-    pub name: Option<SmolStr>,
-    pub element: Option<Element>,
-}
-
-#[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Element {
-    pub kind: SmolStr,
-    pub name: Option<SmolStr>,
-    pub items: Option<Vec<Type>>,
-}
-
-#[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
 pub struct RegistrationOptions {
-    pub kind: SmolStr,
-    pub name: Option<SmolStr>,
+    pub kind: String,
+    pub name: Option<String>,
     pub items: Option<Vec<Type>>,
 }
 
 #[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Notification {
-    pub method: SmolStr,
-    pub type_name: SmolStr,
-    pub message_direction: SmolStr,
-    pub server_capability: Option<SmolStr>,
+    pub method: String,
+    pub type_name: String,
+    pub message_direction: String,
+    pub server_capability: Option<String>,
     pub params: Option<Type>,
-    pub documentation: Option<SmolStr>,
-    pub client_capability: Option<SmolStr>,
+    pub documentation: Option<String>,
+    pub client_capability: Option<String>,
     pub registration_options: Option<Type>,
-    pub since: Option<SmolStr>,
-    pub registration_method: Option<SmolStr>,
+    pub since: Option<String>,
+    pub registration_method: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Structure {
-    pub name: SmolStr,
+    pub name: String,
     pub properties: Vec<Property>,
     #[serde(default)]
     pub extends: Vec<Type>,
     #[serde(default)]
     pub mixins: Vec<Type>,
-    pub documentation: Option<SmolStr>,
-    pub since: Option<SmolStr>,
-    pub since_tags: Option<Vec<SmolStr>>,
+    pub documentation: Option<String>,
+    pub since: Option<String>,
+    pub since_tags: Option<Vec<String>>,
     pub proposed: Option<bool>,
-    pub deprecated: Option<SmolStr>,
+    pub deprecated: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Property {
-    pub name: SmolStr,
+    pub name: String,
     #[serde(rename = "type")]
     pub type_: Type,
-    pub documentation: Option<SmolStr>,
+    pub documentation: Option<String>,
     pub optional: Option<bool>,
-    pub since: Option<SmolStr>,
-    pub since_tags: Option<Vec<SmolStr>>,
+    pub since: Option<String>,
+    pub since_tags: Option<Vec<String>>,
     pub proposed: Option<bool>,
-    pub deprecated: Option<SmolStr>,
+    pub deprecated: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "camelCase")]
 pub enum Type {
     Base { name: BaseType },
-    Reference { name: SmolStr },
+    Reference { name: String },
     Array { element: Box<Type> },
     Map { key: Box<Type>, value: Box<Type> },
     Or { items: Vec<Type> },
     Tuple { items: Vec<Type> },
 
     Literal { value: StructureLiteral },
-    StringLiteral { value: SmolStr },
+    StringLiteral { value: String },
     IntegerLiteral { value: i64 },
     BooleanLiteral { value: bool },
 }
@@ -170,7 +143,7 @@ impl Type {
                     .collect::<Vec<_>>();
                 Some(target::TypeRef::new_tuple(&items))
             }
-            _ => None,
+            _ => panic!(),
         }
     }
 }
@@ -196,17 +169,17 @@ pub enum BaseType {
 #[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Enumeration {
-    pub name: SmolStr,
+    pub name: String,
     #[serde(rename = "type")]
     pub type_: EnumerationType,
     pub values: Vec<EnumerationEntry>,
     #[serde(default)]
     pub supports_custom_values: bool,
-    pub documentation: Option<SmolStr>,
-    pub since: Option<SmolStr>,
+    pub documentation: Option<String>,
+    pub since: Option<String>,
     #[serde(default)]
     pub proposed: bool,
-    pub deprecated: Option<SmolStr>,
+    pub deprecated: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
@@ -226,10 +199,10 @@ pub enum EnumerationTypeKind {
 #[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct EnumerationEntry {
-    pub name: SmolStr,
+    pub name: String,
     pub value: Value,
-    pub documentation: Option<SmolStr>,
-    pub since: Option<SmolStr>,
+    pub documentation: Option<String>,
+    pub since: Option<String>,
     #[serde(default)]
     pub proposed: bool,
 }
@@ -237,24 +210,24 @@ pub struct EnumerationEntry {
 #[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct TypeAlias {
-    pub name: SmolStr,
+    pub name: String,
     #[serde(rename = "type")]
     pub type_: Type,
-    pub documentation: Option<SmolStr>,
-    pub since: Option<SmolStr>,
+    pub documentation: Option<String>,
+    pub since: Option<String>,
     #[serde(default)]
     pub proposed: bool,
-    pub deprecated: Option<SmolStr>,
+    pub deprecated: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct StructureLiteral {
     pub properties: Vec<Property>,
-    pub documentation: Option<SmolStr>,
-    pub since: Option<SmolStr>,
-    pub since_tags: Option<Vec<SmolStr>>,
+    pub documentation: Option<String>,
+    pub since: Option<String>,
+    pub since_tags: Option<Vec<String>>,
     #[serde(default)]
     pub proposed: bool,
-    pub deprecated: Option<SmolStr>,
+    pub deprecated: Option<String>,
 }

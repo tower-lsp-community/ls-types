@@ -1,9 +1,8 @@
 use std::collections::BTreeMap;
 
 use serde::{Deserialize, Serialize};
-use smol_str::{SmolStr, ToSmolStr};
 
-use crate::{
+use crate::generate::{
     schema,
     target::{self, TypeRef},
 };
@@ -13,9 +12,10 @@ use crate::{
 pub struct Config {
     pub version: String,
 
-    pub anon_mappings: BTreeMap<SmolStr, SmolStr>,
-    pub structs: BTreeMap<SmolStr, CodegenOption>,
-    pub enums: BTreeMap<SmolStr, CodegenOption>,
+    pub anon_mappings: BTreeMap<String, MappingOption>,
+    pub structs: BTreeMap<String, CodegenOption>,
+    pub enums: BTreeMap<String, CodegenOption>,
+    pub type_aliases: BTreeMap<String, CodegenOption>,
 }
 
 impl Config {
@@ -33,12 +33,13 @@ impl Config {
             .ok_or(None)?;
         let key = refs
             .iter()
-            .map(|ref_| ref_.as_str().to_smolstr())
+            .map(|ref_| &**ref_)
             .collect::<Vec<_>>()
             .join("|");
 
         match self.anon_mappings.get(key.as_str()) {
-            Some(ref_) => Ok(TypeRef::new(ref_.clone())),
+            Some(MappingOption::Ref(ref_)) => Ok(TypeRef::new(ref_.clone())),
+            Some(MappingOption::Enum(name, _)) => Ok(TypeRef::new(name.clone())),
             None => Err(Some(key)),
         }
     }
@@ -46,7 +47,14 @@ impl Config {
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
+pub enum MappingOption {
+    Ref(String),
+    Enum(String, Vec<String>),
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize)]
+#[serde(untagged)]
 pub enum CodegenOption {
     Generate(bool),
-    Checksum(SmolStr),
+    Checksum(String),
 }

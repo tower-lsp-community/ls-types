@@ -1,15 +1,10 @@
 //! Language Server Protocol (LSP) and Language Server Index Format (LSIF) types.
 //!
-//! Based on <https://microsoft.github.io/language-server-protocol/specification>
+//! *[Specification](https://microsoft.github.io/language-server-protocol/specification)*
 
-use std::{collections::HashMap, fmt::Debug};
+use serde::{Serialize, de::DeserializeOwned};
 
-use serde::{
-    Deserialize, Serialize,
-    de::{self, DeserializeOwned, Error},
-};
-use serde_json::Value;
-
+#[allow(unused_imports)]
 mod generated;
 mod manual;
 
@@ -26,3 +21,16 @@ pub trait Request {
 
 pub type Uri = fluent_uri::Uri<String>;
 pub type DocumentUri = Uri;
+
+#[deprecated]
+type Todo = ();
+
+// Export generated types
+pub use generated::*;
+pub use manual::*;
+
+/// Re-export specification types for glob import
+pub mod prelude {
+    pub use crate::generated::*;
+    pub use crate::manual::*;
+}

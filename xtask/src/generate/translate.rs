@@ -1,27 +1,26 @@
 use std::{
-    collections::{BTreeSet, HashMap},
+    collections::{BTreeMap, BTreeSet},
     hash::{Hash, Hasher},
-    io,
+    str::FromStr,
 };
 
 use eyre::{Context, bail};
-use serde::{Deserialize, de::DeserializeOwned};
-use smol_str::{SmolStr, ToSmolStr};
 
-use crate::{
-    config::{CodegenOption, Config},
-    schema::{self, EnumerationEntry, StructureLiteral},
-    target,
+use crate::generate::{
+    config::{CodegenOption, Config, MappingOption},
+    schema,
+    target::{self, TypeRef},
 };
 
 pub fn translate_schema(
     meta_model: &schema::MetaModel,
     config: &Config,
-) -> eyre::Result<Vec<target::Item>> {
+) -> eyre::Result<target::MetaModel> {
     let mut t = Translator {
         config: config.clone(),
         structs_missing: Default::default(),
         enums_missing: Default::default(),
+        type_aliases_missing: Default::default(),
         anon_missing: Default::default(),
     };
     meta_model.translate(&mut t)
@@ -30,9 +29,10 @@ pub fn translate_schema(
 struct Translator {
     config: Config,
 
-    structs_missing: BTreeSet<SmolStr>,
-    enums_missing: BTreeSet<SmolStr>,
-    anon_missing: BTreeSet<SmolStr>,
+    structs_missing: BTreeSet<String>,
+    enums_missing: BTreeSet<String>,
+    type_aliases_missing: BTreeSet<String>,
+    anon_missing: BTreeSet<String>,
 }
 
 trait TranslateSchema {
@@ -41,7 +41,7 @@ trait TranslateSchema {
 }
 
 impl TranslateSchema for schema::MetaModel {
-    type Output = Vec<target::Item>;
+    type Output = target::MetaModel;
     fn translate(&self, t: &mut Translator) -> eyre::Result<Self::Output> {
         let Self {
             meta_data,
@@ -52,7 +52,52 @@ impl TranslateSchema for schema::MetaModel {
             type_aliases,
         } = self;
 
+        let mut imports = Vec::new();
         let mut items = Vec::new();
+        let mut mixins = BTreeMap::new();
+
+        let schema::MetaData { version } = &meta_data;
+        let version = target::Version::from_str(&version)?;
+
+        if version.as_str().unwrap() != t.config.version {
+            bail!(
+                "config version mismatch: {} != {}",
+                version.as_str().unwrap(),
+                t.config.version
+            )
+        }
+
+        for (key, anon_mapping) in &t.config.anon_mappings {
+            let MappingOption::Enum(name, variants) = anon_mapping else {
+                continue;
+            };
+            let variants_tys = key.split("|").collect::<Vec<_>>();
+
+            if variants_tys.len() != variants.len() {
+                eprintln!("variants count mismatch for anon mapping `{name}`");
+                continue;
+            }
+
+            let variants = variants
+                .iter()
+                .zip(variants_tys)
+                .map(|(name, ty)| target::EnumVariant {
+                    name: name.into(),
+                    value: target::EnumVariantKind::Tuple(vec![target::TypeRef::new(ty)]),
+                    doc: target::Documentation::default(),
+                    since: target::Version::Unknown,
+                })
+                .collect();
+
+            items.push(target::Item::Enum(target::Enum {
+                name: name.into(),
+                variants,
+                doc: target::Documentation::default(),
+                deprecated: None,
+                since: target::Version::Unknown,
+            }));
+        }
+
         for structure in structures {
             match t.config.structs.remove(&structure.name) {
                 Some(CodegenOption::Generate(true | false)) => {
@@ -60,7 +105,8 @@ impl TranslateSchema for schema::MetaModel {
                     let struct_ = structure
                         .translate(t)
                         .wrap_err_with(|| format!("translating structure {}", structure.name))?;
-                    items.push(target::Item::Struct(struct_));
+                    items.push(target::Item::Struct(struct_.clone()));
+                    mixins.insert(structure.name.clone(), struct_);
                 }
                 Some(CodegenOption::Checksum(cksum)) => {
                     let hash = {
@@ -74,6 +120,7 @@ impl TranslateSchema for schema::MetaModel {
                             structure.name, cksum, hash
                         );
                     }
+                    imports.push(structure.name.clone());
                 }
                 None => {
                     t.structs_missing.insert(structure.name.clone());
@@ -109,6 +156,7 @@ impl TranslateSchema for schema::MetaModel {
                             enumeration.name, cksum, hash
                         );
                     }
+                    imports.push(enumeration.name.clone());
                 }
                 None => {
                     t.enums_missing.insert(enumeration.name.clone());
@@ -123,16 +171,106 @@ impl TranslateSchema for schema::MetaModel {
             }
             eprintln!("```");
         }
-
-        if !t.anon_missing.is_empty() {
-            eprintln!("These anon mappings are missing. Add them.\n```toml\n[anon-mappings]");
-            for missing in &t.anon_missing {
-                eprintln!("\"{missing}\" = \"todo\"");
+        for type_alias in type_aliases {
+            match t.config.type_aliases.remove(&type_alias.name) {
+                Some(CodegenOption::Generate(true | false)) => {
+                    let type_alias = type_alias
+                        .translate(t)
+                        .wrap_err_with(|| format!("translating type alias {}", type_alias.name))?;
+                    items.push(target::Item::TypeAlias(type_alias));
+                }
+                Some(CodegenOption::Checksum(cksum)) => {
+                    let hash = {
+                        let mut hasher = fasthash::xx::Hasher32::default();
+                        type_alias.hash(&mut hasher);
+                        format!("{:08x}", hasher.finish())
+                    };
+                    if hash != *cksum {
+                        eprintln!(
+                            "Hash mismatch for type alias {}, expected {:?}, got {:?}",
+                            type_alias.name, cksum, hash
+                        );
+                    }
+                    imports.push(type_alias.name.clone());
+                }
+                None => {
+                    t.type_aliases_missing.insert(type_alias.name.clone());
+                    continue;
+                }
+            };
+        }
+        if !t.type_aliases_missing.is_empty() {
+            eprintln!("These type aliases are missing. Add them.\n```toml\n[type-aliases]");
+            for missing in &t.type_aliases_missing {
+                eprintln!("{missing} = true");
             }
             eprintln!("```");
         }
 
-        todo!()
+        if !t.anon_missing.is_empty() {
+            eprintln!("These anon mappings are missing. Add them.\n```toml\n[anon-mappings]");
+            for missing in &t.anon_missing {
+                eprintln!("\"{missing}\" = \"crate::Todo\"");
+            }
+            eprintln!("```");
+        }
+
+        // resolve mixins
+        for item in &mut items {
+            let target::Item::Struct(struct_) = item else {
+                continue;
+            };
+
+            while let Some(extend) = &struct_.extends.pop() {
+                let mixin = mixins.get(extend).unwrap();
+
+                // TODO: could be avoided with simple topological sort
+                // TODO: include in the documentation where this field is from
+                struct_.extends.extend(mixin.extends.iter().cloned());
+
+                // struct_.fields.extend(mixin.fields.iter().cloned().map(|field| {field.doc = ;field}));
+            }
+        }
+
+        // for request in requests {
+        //     items.push(target::Item::TraitImpl(target::TraitImpl {
+        //         interface: "crate::Request".into(),
+        //         implementor: request.type_name.clone(),
+        //         assoc_types: vec![
+        //             (
+        //                 "Params".into(),
+        //                 request.params.as_ref().unwrap().translate(t)?.unwrap(),
+        //             ),
+        //             ("Result".into(), request.result.translate(t)?.unwrap()),
+        //         ],
+        //         assoc_const: vec![(
+        //             "METHOD".into(),
+        //             target::TypeRef::new("&'static str"),
+        //             request.method.clone(),
+        //         )],
+        //     }));
+        // }
+        for notification in notifications {
+            let params = if let Some(x) = &notification.params {
+                x.translate(t)?.unwrap()
+            } else {
+                TypeRef::new("()")
+            };
+
+            let trait_impl = target::TraitImpl {
+                interface: "crate::Notification".into(),
+                implementor: notification.type_name.clone(),
+                assoc_types: vec![("Params".into(), params)],
+                assoc_const: vec![(
+                    "METHOD".into(),
+                    target::TypeRef::new("&'static str"),
+                    notification.method.clone(),
+                )],
+            };
+            items.push(target::Item::TraitImpl(trait_impl));
+        }
+
+        Ok(target::MetaModel { imports, items })
     }
 }
 
@@ -154,7 +292,7 @@ impl TranslateSchema for schema::Structure {
         let extends = extends
             .iter()
             .chain(mixins)
-            .map(|ty| ty.clone().into_reference().unwrap().as_str().to_smolstr())
+            .map(|ty| ty.clone().into_reference().unwrap().to_string())
             .collect();
 
         let mut fields = Vec::default();
@@ -170,18 +308,21 @@ impl TranslateSchema for schema::Structure {
             deprecated,
         } in properties
         {
-            let Some(ty) = type_
+            let Some(mut ty) = type_
                 .translate(t)
                 .wrap_err_with(|| format!("while translating property: {name}"))?
             else {
                 continue;
             };
+            if optional.unwrap_or_default() {
+                ty = target::TypeRef::new_generics("Option", &[ty])
+            }
 
             fields.push(target::StructFields {
                 name: name.clone(),
                 ty,
-                doc: documentation.clone(),
-                since: target::Version::parse(since.as_deref())?,
+                doc: documentation.into(),
+                since: since.try_into()?,
                 deprecated: deprecated.clone(),
             });
         }
@@ -190,8 +331,8 @@ impl TranslateSchema for schema::Structure {
             name: name.clone(),
             extends,
             fields,
-            doc: documentation.clone(),
-            since: target::Version::parse(since.as_deref())?,
+            doc: documentation.into(),
+            since: since.try_into()?,
             deprecated: deprecated.clone(),
         })
     }
@@ -215,10 +356,12 @@ impl TranslateSchema for schema::Enumeration {
         match kind {
             schema::EnumerationTypeKind::String => { /* default, nothing to do */ }
             schema::EnumerationTypeKind::Integer => {
-                bail!("translate int enums")
+                // TODO
+                // bail!("translate int enums")
             }
             schema::EnumerationTypeKind::Uinteger => {
-                bail!("translate uint enums")
+                // TODO
+                // bail!("translate uint enums")
             }
         }
 
@@ -232,19 +375,19 @@ impl TranslateSchema for schema::Enumeration {
             proposed,
         } in values
         {
-            variants.push(target::EnumVariants {
+            variants.push(target::EnumVariant {
                 name: name.clone(),
-                doc: documentation.clone(),
-                since: target::Version::parse(since.as_deref())?,
+                value: target::EnumVariantKind::Unit,
+                doc: documentation.into(),
+                since: since.try_into()?,
             });
         }
 
         Ok(target::Enum {
             name: name.clone(),
             variants,
-            doc: documentation.clone(),
-            since: target::Version::parse(since.as_deref())
-                .unwrap_or_else(|s| panic!("invalid version {s}")),
+            doc: documentation.into(),
+            since: since.try_into()?,
             deprecated: deprecated.clone(),
         })
     }
@@ -290,7 +433,7 @@ impl TranslateSchema for schema::Type {
                     !matches!(
                         item,
                         schema::Type::Literal {
-                            value: StructureLiteral { properties, .. }
+                            value: schema::StructureLiteral { properties, .. }
                         }
                         if properties.is_empty()
                     )
@@ -316,7 +459,7 @@ impl TranslateSchema for schema::Type {
                         Ok(ref_) => ref_,
                         Err(None) => bail!("invalid collection of items for an enum: {items:#?}"),
                         Err(Some(key)) => {
-                            t.anon_missing.insert(key.to_smolstr());
+                            t.anon_missing.insert(key);
                             target::TypeRef::new("todo!()")
                         }
                     }
@@ -337,5 +480,27 @@ impl TranslateSchema for schema::Type {
             }
         };
         Ok(Some(ty))
+    }
+}
+
+impl TranslateSchema for schema::TypeAlias {
+    type Output = target::TypeAlias;
+    fn translate(&self, t: &mut Translator) -> eyre::Result<Self::Output> {
+        let Self {
+            name,
+            type_,
+            documentation,
+            since,
+            proposed,
+            deprecated,
+        } = &self;
+
+        Ok(target::TypeAlias {
+            name: name.clone(),
+            ty: type_.translate(t)?.unwrap(),
+            doc: documentation.into(),
+            deprecated: deprecated.clone(),
+            since: since.try_into()?,
+        })
     }
 }
