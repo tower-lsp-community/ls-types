@@ -4,44 +4,53 @@ use heck::{ToSnekCase, ToUpperCamelCase};
 
 use crate::generate::target;
 
+struct CodegenCtx<'w> {
+    w: &'w mut dyn Write,
+    default_derives: String,
+}
+
 pub fn codegen_schema<'w, 'd>(
     w: &'w mut dyn Write,
-    schema: &'d target::MetaModel,
+    target::MetaModel {
+        default_derives,
+        imports,
+        items,
+    }: &'d target::MetaModel,
 ) -> io::Result<()> {
-    schema.codegen(w)
+    let mut cx = CodegenCtx {
+        w,
+        default_derives: format!("#[derive({})]", default_derives.join(", ")),
+    };
+
+    writeln!(cx.w, "use serde::{{Deserialize, Serialize}};")?;
+    writeln!(cx.w, "use crate::manual::{{{}}};", imports.join(", "))?;
+    writeln!(cx.w)?;
+
+    for item in items {
+        item.codegen(&mut cx)?;
+        writeln!(cx.w)?;
+    }
+    Ok(())
 }
 
 trait Codegen<'w> {
-    fn codegen(&self, w: &'w mut dyn Write) -> io::Result<()>;
-}
-
-impl Codegen<'_> for target::MetaModel {
-    fn codegen(&self, w: &'_ mut dyn Write) -> io::Result<()> {
-        let Self { imports, items } = &self;
-
-        writeln!(w, "use crate::manual::{{{}}};\n", imports.join(", "))?;
-        for item in items {
-            item.codegen(w)?;
-            writeln!(w)?;
-        }
-        Ok(())
-    }
+    fn codegen(&self, cx: &mut CodegenCtx<'w>) -> io::Result<()>;
 }
 
 impl Codegen<'_> for target::Item {
-    fn codegen(&self, w: &'_ mut dyn Write) -> io::Result<()> {
+    fn codegen(&self, cx: &mut CodegenCtx<'_>) -> io::Result<()> {
         match self {
-            Self::Struct(struct_) => struct_.codegen(w)?,
-            Self::Enum(enum_) => enum_.codegen(w)?,
-            Self::TypeAlias(type_alias) => type_alias.codegen(w)?,
-            Self::TraitImpl(trait_impl) => trait_impl.codegen(w)?,
+            Self::Struct(struct_) => struct_.codegen(cx)?,
+            Self::Enum(enum_) => enum_.codegen(cx)?,
+            Self::TypeAlias(type_alias) => type_alias.codegen(cx)?,
+            Self::TraitImpl(trait_impl) => trait_impl.codegen(cx)?,
         }
         Ok(())
     }
 }
 
 impl Codegen<'_> for target::Struct {
-    fn codegen(&self, w: &'_ mut dyn Write) -> io::Result<()> {
+    fn codegen(&self, cx: &mut CodegenCtx<'_>) -> io::Result<()> {
         let Self {
             name,
             extends,
@@ -51,19 +60,20 @@ impl Codegen<'_> for target::Struct {
             since,
         } = &self;
 
-        doc.codegen(w)?;
-        codegen_deprecated(w, deprecated)?;
-        writeln!(w, "pub struct {name} {{")?;
+        doc.codegen(cx)?;
+        codegen_deprecated(cx, deprecated)?;
+        writeln!(cx.w, "{}", cx.default_derives)?;
+        writeln!(cx.w, "pub struct {name} {{")?;
         for field in fields {
-            field.codegen(w)?;
+            field.codegen(cx)?;
         }
-        writeln!(w, "}}\n")?;
+        writeln!(cx.w, "}}\n")?;
         Ok(())
     }
 }
 
 impl Codegen<'_> for target::StructFields {
-    fn codegen(&self, w: &'_ mut dyn Write) -> io::Result<()> {
+    fn codegen(&self, cx: &mut CodegenCtx<'_>) -> io::Result<()> {
         let Self {
             name,
             ty,
@@ -77,16 +87,16 @@ impl Codegen<'_> for target::StructFields {
             name => &name.to_snek_case(),
         };
 
-        doc.codegen(w)?;
-        codegen_deprecated(w, deprecated)?;
-        writeln!(w, "\tpub {name}: {},", &ty)?;
+        doc.codegen(cx)?;
+        codegen_deprecated(cx, deprecated)?;
+        writeln!(cx.w, "\tpub {name}: {},", &ty)?;
 
         Ok(())
     }
 }
 
 impl Codegen<'_> for target::Enum {
-    fn codegen(&self, w: &'_ mut dyn Write) -> io::Result<()> {
+    fn codegen(&self, cx: &mut CodegenCtx<'_>) -> io::Result<()> {
         let Self {
             name,
             variants,
@@ -95,20 +105,21 @@ impl Codegen<'_> for target::Enum {
             since,
         } = &self;
 
-        doc.codegen(w)?;
-        codegen_deprecated(w, deprecated)?;
-        writeln!(w, "pub enum {name} {{")?;
+        doc.codegen(cx)?;
+        codegen_deprecated(cx, deprecated)?;
+        writeln!(cx.w, "{}", cx.default_derives)?;
+        writeln!(cx.w, "pub enum {name} {{")?;
         for variant in variants {
-            variant.codegen(w)?;
+            variant.codegen(cx)?;
         }
-        writeln!(w, "}}\n")?;
+        writeln!(cx.w, "}}\n")?;
 
         Ok(())
     }
 }
 
 impl Codegen<'_> for target::EnumVariant {
-    fn codegen(&self, w: &'_ mut dyn Write) -> io::Result<()> {
+    fn codegen(&self, cx: &mut CodegenCtx<'_>) -> io::Result<()> {
         let Self {
             name,
             value,
@@ -116,13 +127,13 @@ impl Codegen<'_> for target::EnumVariant {
             since,
         } = &self;
 
-        doc.codegen(w)?;
-        write!(w, "{}", name.to_upper_camel_case())?;
+        doc.codegen(cx)?;
+        write!(cx.w, "{}", name.to_upper_camel_case())?;
         match value {
             target::EnumVariantKind::Unit => {}
             target::EnumVariantKind::Tuple(members) => {
                 write!(
-                    w,
+                    cx.w,
                     "({})",
                     members
                         .iter()
@@ -132,12 +143,12 @@ impl Codegen<'_> for target::EnumVariant {
                 )?;
             }
         }
-        writeln!(w, ",")
+        writeln!(cx.w, ",")
     }
 }
 
 impl Codegen<'_> for target::TypeAlias {
-    fn codegen(&self, w: &'_ mut dyn Write) -> io::Result<()> {
+    fn codegen(&self, cx: &mut CodegenCtx<'_>) -> io::Result<()> {
         let Self {
             name,
             ty,
@@ -146,14 +157,14 @@ impl Codegen<'_> for target::TypeAlias {
             deprecated,
         } = &self;
 
-        doc.codegen(w)?;
-        codegen_deprecated(w, deprecated)?;
-        writeln!(w, "pub type {name} = {ty};")
+        doc.codegen(cx)?;
+        codegen_deprecated(cx, deprecated)?;
+        writeln!(cx.w, "pub type {name} = {ty};")
     }
 }
 
 impl Codegen<'_> for target::TraitImpl {
-    fn codegen(&self, w: &'_ mut dyn Write) -> io::Result<()> {
+    fn codegen(&self, cx: &mut CodegenCtx<'_>) -> io::Result<()> {
         let Self {
             interface,
             implementor,
@@ -161,30 +172,30 @@ impl Codegen<'_> for target::TraitImpl {
             assoc_const,
         } = &self;
 
-        writeln!(w, "impl {interface} for {implementor} {{")?;
+        writeln!(cx.w, "impl {interface} for {implementor} {{")?;
         for (name, ty) in assoc_types {
-            writeln!(w, "type {name} = {ty};")?;
+            writeln!(cx.w, "type {name} = {ty};")?;
         }
         for (name, ty, value) in assoc_const {
-            writeln!(w, "const {name}: {ty} = \"{value}\";")?;
+            writeln!(cx.w, "const {name}: {ty} = \"{value}\";")?;
         }
-        writeln!(w, "}}\n")?;
+        writeln!(cx.w, "}}\n")?;
         Ok(())
     }
 }
 
 impl Codegen<'_> for target::Documentation {
-    fn codegen(&self, w: &'_ mut dyn Write) -> io::Result<()> {
+    fn codegen(&self, cx: &mut CodegenCtx<'_>) -> io::Result<()> {
         for line in self.0.lines() {
-            writeln!(w, "/// {line}")?;
+            writeln!(cx.w, "/// {line}")?;
         }
         Ok(())
     }
 }
 
-fn codegen_deprecated<'w>(w: &'w mut dyn Write, deprecated: &Option<String>) -> io::Result<()> {
+fn codegen_deprecated<'w>(cx: &mut CodegenCtx<'w>, deprecated: &Option<String>) -> io::Result<()> {
     if let Some(reason) = deprecated {
-        writeln!(w, "#[deprecated = \"{reason}\"]")?;
+        writeln!(cx.w, "#[deprecated = \"{reason}\"]")?;
     }
     Ok(())
 }

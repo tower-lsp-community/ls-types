@@ -131,7 +131,9 @@ impl Type {
                 BaseType::Uinteger => Some(target::TypeRef::new("u32")),
                 BaseType::String => Some(target::TypeRef::new("String")),
                 BaseType::Boolean => Some(target::TypeRef::new("bool")),
-                _ => None,
+
+                BaseType::Null => None,
+                _ => panic!(),
             },
             Self::Array { element } => element
                 .into_reference()

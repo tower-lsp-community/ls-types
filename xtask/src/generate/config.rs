@@ -12,6 +12,8 @@ use crate::generate::{
 pub struct Config {
     pub version: String,
 
+    pub default_derives: Vec<String>,
+
     pub anon_mappings: BTreeMap<String, MappingOption>,
     pub structs: BTreeMap<String, CodegenOption>,
     pub enums: BTreeMap<String, CodegenOption>,
@@ -26,22 +28,29 @@ impl Config {
         &self,
         items: &[schema::Type],
     ) -> Result<target::TypeRef, Option<String>> {
-        let refs = items
-            .iter()
-            .map(|item| item.clone().into_reference())
-            .collect::<Option<Vec<TypeRef>>>()
-            .ok_or(None)?;
-        let key = refs
-            .iter()
-            .map(|ref_| &**ref_)
-            .collect::<Vec<_>>()
-            .join("|");
+        let mut null_case = false;
 
-        match self.anon_mappings.get(key.as_str()) {
-            Some(MappingOption::Ref(ref_)) => Ok(TypeRef::new(ref_.clone())),
-            Some(MappingOption::Enum(name, _)) => Ok(TypeRef::new(name.clone())),
-            None => Err(Some(key)),
+        let mut refs = Vec::default();
+        for item in items {
+            let Some(type_ref) = item.clone().into_reference() else {
+                null_case = true;
+                continue;
+            };
+            refs.push(type_ref.to_string());
         }
+
+        let key = refs.join("|");
+        let mut anon_mapping_ref = match self.anon_mappings.get(key.as_str()) {
+            Some(MappingOption::Ref(ref_)) => TypeRef::new(ref_.clone()),
+            Some(MappingOption::Enum(name, _)) => TypeRef::new(name.clone()),
+            None => return Err(Some(key)),
+        };
+
+        if null_case {
+            anon_mapping_ref = TypeRef::new_generics("Option", &[anon_mapping_ref]);
+        }
+
+        Ok(anon_mapping_ref)
     }
 }
 

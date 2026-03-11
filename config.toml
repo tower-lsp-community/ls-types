@@ -1,10 +1,30 @@
 version = "3.18.0"
 
+default-derives = [
+  "Debug",
+  "Clone",
+  "PartialEq",
+  "Eq",
+  "Hash",
+]
+
 [anon-mappings]
 "String|NotebookDocumentFilter" = ["Notebook", ["Match", "Filter"]]
 "TextDocumentEdit|CreateFile|RenameFile|DeleteFile" = ["DocumentChange", ["Edit", "Create", "Rename", "Delete"]]
 "i64|String" = ["NumberOrString", ["Number", "String"]]
+"String|MarkedStringWithLanguage" = ["_MarkedString", ["String", "LanguageString"]]
+"Command|CodeAction" = ["CodeActionOrCommand", ["CodeAction", "Command"]]
 
+"Declaration|Vec<DeclarationLink>" = "crate::Todo"
+"Definition|Vec<DefinitionLink>" = "crate::Todo"
+"InlineCompletionList|Vec<InlineCompletionItem>" = "crate::Todo"
+"SemanticTokensPartialResult|SemanticTokensDeltaPartialResult" = "crate::Todo"
+"SemanticTokens|SemanticTokensDelta" = "crate::Todo"
+"Vec<CompletionItem>|CompletionList" = "crate::Todo"
+"Vec<Location>|Vec<DeclarationLink>" = "crate::Todo"
+"Vec<Location>|Vec<DefinitionLink>" = "crate::Todo"
+"Vec<SymbolInformation>|Vec<DocumentSymbol>" = "crate::Todo"
+"Vec<SymbolInformation>|Vec<WorkspaceSymbol>" = "crate::Todo"
 "String|Vec<InlayHintLabelPart>" = "crate::Todo"
 "DiagnosticOptions|DiagnosticRegistrationOptions" = "crate::Todo"
 "FullDocumentDiagnosticReport|UnchangedDocumentDiagnosticReport" = "crate::Todo"
@@ -50,14 +70,12 @@ version = "3.18.0"
 "bool|TypeDefinitionOptions|TypeDefinitionRegistrationOptions" = "crate::Todo"
 "bool|TypeHierarchyOptions|TypeHierarchyRegistrationOptions" = "crate::Todo"
 "bool|WorkspaceSymbolOptions" = "crate::Todo"
-
 "InlineValueText|InlineValueVariableLookup|InlineValueEvaluatableExpression" = "crate::Todo"
 "Location|Vec<Location>" = "crate::Todo"
 "NotebookDocumentFilterNotebookType|NotebookDocumentFilterScheme|NotebookDocumentFilterPattern" = "crate::Todo"
 "Pattern|RelativePattern" = "crate::Todo"
 "Range|PrepareRenamePlaceholder|PrepareRenameDefaultBehavior" = "crate::Todo"
 "RelatedFullDocumentDiagnosticReport|RelatedUnchangedDocumentDiagnosticReport" = "crate::Todo"
-"String|MarkedStringWithLanguage" = "crate::Todo"
 "TextDocumentContentChangePartial|TextDocumentContentChangeWholeDocument" = "crate::Todo"
 "TextDocumentFilterLanguage|TextDocumentFilterScheme|TextDocumentFilterPattern" = "crate::Todo"
 "TextDocumentFilter|NotebookCellTextDocumentFilter" = "crate::Todo"
@@ -69,7 +87,7 @@ WorkDoneProgressBegin = "772515a1"
 WorkDoneProgressReport = "3c5e33b1"
 WorkDoneProgressEnd = "f29d183a"
 
-# infinitly recursive type
+# recursive type
 SelectionRange = "34f57c42"
 
 AnnotatedTextEdit = true

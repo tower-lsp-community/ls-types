@@ -82,6 +82,7 @@ impl Version {
 
 #[derive(Debug)]
 pub struct MetaModel {
+    pub default_derives: Vec<String>,
     pub imports: Vec<String>,
     pub items: Vec<Item>,
 }

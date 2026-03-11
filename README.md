@@ -11,8 +11,6 @@
 [docs-badge]: https://docs.rs/ls-types/badge.svg
 [docs-url]: https://docs.rs/ls-types
 
-*A fork of [lsp-types](https://github.com/gluon-lang/lsp-types)*
-
 - [Projects using `ls-types`](#projects-using-ls-types)
 - [Contributing](#contributing)
 - [License](#license)
@@ -38,6 +36,10 @@ Upcoming LSP version [*3.18.0*] features can be added using the `lsp-v3.18.0` fe
 
 If you are making a change which adds, removes or modifies the LSP API it is highly appreciated if you link to the spec where this change is described.
 This gives context to whether the change should be an experimental addition and lets the reviewer easily double check the changes against the spec.
+
+# Acknowledgement
+
+This crate is originally based on the work of the mainteners of [lsp-types](https://github.com/gluon-lang/lsp-types).
 
 # License
 

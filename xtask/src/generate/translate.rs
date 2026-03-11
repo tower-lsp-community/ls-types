@@ -9,7 +9,7 @@ use eyre::{Context, bail};
 use crate::generate::{
     config::{CodegenOption, Config, MappingOption},
     schema,
-    target::{self, TypeRef},
+    target::{self},
 };
 
 pub fn translate_schema(
@@ -207,14 +207,6 @@ impl TranslateSchema for schema::MetaModel {
             eprintln!("```");
         }
 
-        if !t.anon_missing.is_empty() {
-            eprintln!("These anon mappings are missing. Add them.\n```toml\n[anon-mappings]");
-            for missing in &t.anon_missing {
-                eprintln!("\"{missing}\" = \"crate::Todo\"");
-            }
-            eprintln!("```");
-        }
-
         // resolve mixins
         for item in &mut items {
             let target::Item::Struct(struct_) = item else {
@@ -228,36 +220,65 @@ impl TranslateSchema for schema::MetaModel {
                 // TODO: include in the documentation where this field is from
                 struct_.extends.extend(mixin.extends.iter().cloned());
 
-                // struct_.fields.extend(mixin.fields.iter().cloned().map(|field| {field.doc = ;field}));
+                struct_
+                    .fields
+                    .extend(mixin.fields.iter().cloned().map(|mut field| {
+                        field
+                            .doc
+                            .0
+                            .push_str(&format!("\n\nField inherited from *{extend}*"));
+                        field
+                    }));
             }
         }
 
-        // for request in requests {
-        //     items.push(target::Item::TraitImpl(target::TraitImpl {
-        //         interface: "crate::Request".into(),
-        //         implementor: request.type_name.clone(),
-        //         assoc_types: vec![
-        //             (
-        //                 "Params".into(),
-        //                 request.params.as_ref().unwrap().translate(t)?.unwrap(),
-        //             ),
-        //             ("Result".into(), request.result.translate(t)?.unwrap()),
-        //         ],
-        //         assoc_const: vec![(
-        //             "METHOD".into(),
-        //             target::TypeRef::new("&'static str"),
-        //             request.method.clone(),
-        //         )],
-        //     }));
-        // }
-        for notification in notifications {
-            let params = if let Some(x) = &notification.params {
-                x.translate(t)?.unwrap()
-            } else {
-                TypeRef::new("()")
+        for request in requests {
+            let params = match &request.params {
+                Some(params) => params.translate(t)?.unwrap(),
+                None => target::TypeRef::new("()"),
+            };
+            let partial_result = match &request.partial_result {
+                Some(partial_result) => partial_result.translate(t)?.unwrap(),
+                None => target::TypeRef::new("crate::NoPartialResult"),
             };
 
-            let trait_impl = target::TraitImpl {
+            items.push(target::Item::Enum(target::Enum {
+                name: request.type_name.clone(),
+                variants: vec![],
+                doc: (&request.documentation).into(),
+                deprecated: None,
+                since: target::Version::Unknown,
+            }));
+            items.push(target::Item::TraitImpl(target::TraitImpl {
+                interface: "crate::Request".into(),
+                implementor: request.type_name.clone(),
+                assoc_types: vec![
+                    ("Params".into(), params),
+                    ("Result".into(), request.result.translate(t)?.unwrap()),
+                    ("PartialResult".into(), partial_result),
+                ],
+                assoc_const: vec![(
+                    "METHOD".into(),
+                    target::TypeRef::new("&'static str"),
+                    request.method.clone(),
+                )],
+            }));
+        }
+
+        for notification in notifications {
+            let params = match &notification.params {
+                Some(params) => params.translate(t)?.unwrap(),
+                None => target::TypeRef::new("()"),
+            };
+
+            items.push(target::Item::Enum(target::Enum {
+                name: notification.type_name.clone(),
+                variants: vec![],
+                doc: (&notification.documentation).into(),
+                deprecated: None,
+                since: target::Version::Unknown,
+            }));
+            items.push(target::Item::TraitImpl(target::TraitImpl {
                 interface: "crate::Notification".into(),
                 implementor: notification.type_name.clone(),
                 assoc_types: vec![("Params".into(), params)],
@@ -266,11 +287,22 @@ impl TranslateSchema for schema::MetaModel {
                     target::TypeRef::new("&'static str"),
                     notification.method.clone(),
                 )],
-            };
-            items.push(target::Item::TraitImpl(trait_impl));
+            }));
         }
 
-        Ok(target::MetaModel { imports, items })
+        if !t.anon_missing.is_empty() {
+            eprintln!("These anon mappings are missing. Add them.\n```toml\n[anon-mappings]");
+            for missing in &t.anon_missing {
+                eprintln!("\"{missing}\" = \"crate::Todo\"");
+            }
+            eprintln!("```");
+        }
+
+        Ok(target::MetaModel {
+            default_derives: t.config.default_derives.clone(),
+            imports,
+            items,
+        })
     }
 }
 
@@ -289,6 +321,8 @@ impl TranslateSchema for schema::Structure {
             deprecated,
         } = self;
 
+        // TODO: how do they distinguish extends from mixins?
+        // should we inline mixins but keep extends serde(flatten)
         let extends = extends
             .iter()
             .chain(mixins)
@@ -408,7 +442,10 @@ impl TranslateSchema for schema::Type {
                 schema::BaseType::RegExp => panic!("present in the spec but not in the metaModel"),
                 schema::BaseType::String => target::TypeRef::new("String"),
                 schema::BaseType::Boolean => target::TypeRef::new("bool"),
-                schema::BaseType::Null => todo!(),
+                schema::BaseType::Null => {
+                    // FIXME: is only valid when called for requests
+                    target::TypeRef::new("bool")
+                }
             },
             schema::Type::Array { element } => {
                 let Some(element) = element.translate(t)? else {
@@ -460,7 +497,7 @@ impl TranslateSchema for schema::Type {
                         Err(None) => bail!("invalid collection of items for an enum: {items:#?}"),
                         Err(Some(key)) => {
                             t.anon_missing.insert(key);
-                            target::TypeRef::new("todo!()")
+                            target::TypeRef::new("compile_error!(\"missing anon mapping\")")
                         }
                     }
                 }

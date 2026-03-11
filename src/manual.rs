@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 
-pub type LSPAny = crate::Todo;
+pub type LSPAny = serde_json::Value;
 
+#[derive(Debug, PartialEq, Eq, Default, Deserialize, Serialize, Clone)]
 pub struct SelectionRange {
     /// The {@link Range range} of this selection range.
     // pub range: crate::generated::Range,
