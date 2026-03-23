@@ -68,7 +68,7 @@ impl TranslateSchema for schema::MetaModel {
         }
 
         for (key, anon_mapping) in &t.config.anon_mappings {
-            let MappingOption::Enum(name, variants) = anon_mapping else {
+            let MappingOption::Enum { name, variants } = anon_mapping else {
                 continue;
             };
             let variants_tys = key.split("|").collect::<Vec<_>>();
@@ -100,7 +100,9 @@ impl TranslateSchema for schema::MetaModel {
 
         for structure in structures {
             match t.config.structs.remove(&structure.name) {
-                Some(CodegenOption::Generate(true | false)) => {
+                Some(CodegenOption::Generate {
+                    generate: true | false,
+                }) => {
                     // FIXME(wiro): use false to not actually generate the item, makes it mixin only
                     let struct_ = structure
                         .translate(t)
@@ -108,7 +110,7 @@ impl TranslateSchema for schema::MetaModel {
                     items.push(target::Item::Struct(struct_.clone()));
                     mixins.insert(structure.name.clone(), struct_);
                 }
-                Some(CodegenOption::Checksum(cksum)) => {
+                Some(CodegenOption::Checksum { hash: cksum }) => {
                     let hash = {
                         let mut hasher = fasthash::xx::Hasher32::default();
                         structure.hash(&mut hasher);
@@ -138,13 +140,15 @@ impl TranslateSchema for schema::MetaModel {
 
         for enumeration in enumerations {
             match t.config.enums.remove(&enumeration.name) {
-                Some(CodegenOption::Generate(true | false)) => {
+                Some(CodegenOption::Generate {
+                    generate: true | false,
+                }) => {
                     let enum_ = enumeration.translate(t).wrap_err_with(|| {
                         format!("translating enumeration {}", enumeration.name)
                     })?;
                     items.push(target::Item::Enum(enum_));
                 }
-                Some(CodegenOption::Checksum(cksum)) => {
+                Some(CodegenOption::Checksum { hash: cksum }) => {
                     let hash = {
                         let mut hasher = fasthash::xx::Hasher32::default();
                         enumeration.hash(&mut hasher);
@@ -173,13 +177,15 @@ impl TranslateSchema for schema::MetaModel {
         }
         for type_alias in type_aliases {
             match t.config.type_aliases.remove(&type_alias.name) {
-                Some(CodegenOption::Generate(true | false)) => {
+                Some(CodegenOption::Generate {
+                    generate: true | false,
+                }) => {
                     let type_alias = type_alias
                         .translate(t)
                         .wrap_err_with(|| format!("translating type alias {}", type_alias.name))?;
                     items.push(target::Item::TypeAlias(type_alias));
                 }
-                Some(CodegenOption::Checksum(cksum)) => {
+                Some(CodegenOption::Checksum { hash: cksum }) => {
                     let hash = {
                         let mut hasher = fasthash::xx::Hasher32::default();
                         type_alias.hash(&mut hasher);

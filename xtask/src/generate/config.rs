@@ -41,8 +41,8 @@ impl Config {
 
         let key = refs.join("|");
         let mut anon_mapping_ref = match self.anon_mappings.get(key.as_str()) {
-            Some(MappingOption::Ref(ref_)) => TypeRef::new(ref_.clone()),
-            Some(MappingOption::Enum(name, _)) => TypeRef::new(name.clone()),
+            Some(MappingOption::Ref { r#ref }) => TypeRef::new(r#ref.clone()),
+            Some(MappingOption::Enum { name, .. }) => TypeRef::new(name.clone()),
             None => return Err(Some(key)),
         };
 
@@ -57,13 +57,13 @@ impl Config {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum MappingOption {
-    Ref(String),
-    Enum(String, Vec<String>),
+    Ref { r#ref: String },
+    Enum { name: String, variants: Vec<String> },
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 #[serde(untagged)]
 pub enum CodegenOption {
-    Generate(bool),
-    Checksum(String),
+    Generate { generate: bool },
+    Checksum { hash: String },
 }

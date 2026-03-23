@@ -9,534 +9,534 @@ default-derives = [
 ]
 
 [anon-mappings]
-"String|NotebookDocumentFilter" = ["Notebook", ["Match", "Filter"]]
-"TextDocumentEdit|CreateFile|RenameFile|DeleteFile" = ["DocumentChange", ["Edit", "Create", "Rename", "Delete"]]
-"i64|String" = ["NumberOrString", ["Number", "String"]]
-"String|MarkedStringWithLanguage" = ["_MarkedString", ["String", "LanguageString"]]
-"Command|CodeAction" = ["CodeActionOrCommand", ["CodeAction", "Command"]]
+"String|NotebookDocumentFilter" = { name = "Notebook", variants =  ["Match", "Filter"] }
+"TextDocumentEdit|CreateFile|RenameFile|DeleteFile" = { name = "DocumentChange", variants =  ["Edit", "Create", "Rename", "Delete"] }
+"i64|String" = { name = "NumberOrString", variants =  ["Number", "String"] }
+"String|MarkedStringWithLanguage" = { name = "_MarkedString", variants =  ["String", "LanguageString"] }
+"Command|CodeAction" = { name = "CodeActionOrCommand", variants =  ["CodeAction", "Command"] }
 
-"Declaration|Vec<DeclarationLink>" = "crate::Todo"
-"Definition|Vec<DefinitionLink>" = "crate::Todo"
-"InlineCompletionList|Vec<InlineCompletionItem>" = "crate::Todo"
-"SemanticTokensPartialResult|SemanticTokensDeltaPartialResult" = "crate::Todo"
-"SemanticTokens|SemanticTokensDelta" = "crate::Todo"
-"Vec<CompletionItem>|CompletionList" = "crate::Todo"
-"Vec<Location>|Vec<DeclarationLink>" = "crate::Todo"
-"Vec<Location>|Vec<DefinitionLink>" = "crate::Todo"
-"Vec<SymbolInformation>|Vec<DocumentSymbol>" = "crate::Todo"
-"Vec<SymbolInformation>|Vec<WorkspaceSymbol>" = "crate::Todo"
-"String|Vec<InlayHintLabelPart>" = "crate::Todo"
-"DiagnosticOptions|DiagnosticRegistrationOptions" = "crate::Todo"
-"FullDocumentDiagnosticReport|UnchangedDocumentDiagnosticReport" = "crate::Todo"
-"Location|LocationUriOnly" = "crate::Todo"
-"MarkupContent|MarkedString|Vec<MarkedString>" = "crate::Todo"
-"NotebookDocumentFilterWithNotebook|NotebookDocumentFilterWithCells" = "crate::Todo"
-"NotebookDocumentSyncOptions|NotebookDocumentSyncRegistrationOptions" = "crate::Todo"
-"Range|EditRangeWithInsertReplace" = "crate::Todo"
-"SemanticTokensOptions|SemanticTokensRegistrationOptions" = "crate::Todo"
-"String|(u32,u32)" = "crate::Todo"
-"String|MarkupContent" = "crate::Todo"
-"String|StringValue" = "crate::Todo"
-"String|Vec<String>" = "crate::Todo"
-"String|bool" = "crate::Todo"
-"TextDocumentContentOptions|TextDocumentContentRegistrationOptions" = "crate::Todo"
-"TextDocumentSyncOptions|TextDocumentSyncKind" = "crate::Todo"
-"TextEdit|AnnotatedTextEdit|SnippetTextEdit" = "crate::Todo"
-"TextEdit|InsertReplaceEdit" = "crate::Todo"
-"WorkspaceFolder|Uri" = "crate::Todo"
-"bool|CallHierarchyOptions|CallHierarchyRegistrationOptions" = "crate::Todo"
-"bool|ClientSemanticTokensRequestFullDelta" = "crate::Todo"
-"bool|CodeActionOptions" = "crate::Todo"
-"bool|DeclarationOptions|DeclarationRegistrationOptions" = "crate::Todo"
-"bool|DefinitionOptions" = "crate::Todo"
-"bool|DocumentColorOptions|DocumentColorRegistrationOptions" = "crate::Todo"
-"bool|DocumentFormattingOptions" = "crate::Todo"
-"bool|DocumentHighlightOptions" = "crate::Todo"
-"bool|DocumentRangeFormattingOptions" = "crate::Todo"
-"bool|DocumentSymbolOptions" = "crate::Todo"
-"bool|FoldingRangeOptions|FoldingRangeRegistrationOptions" = "crate::Todo"
-"bool|HoverOptions" = "crate::Todo"
-"bool|ImplementationOptions|ImplementationRegistrationOptions" = "crate::Todo"
-"bool|InlayHintOptions|InlayHintRegistrationOptions" = "crate::Todo"
-"bool|InlineCompletionOptions" = "crate::Todo"
-"bool|InlineValueOptions|InlineValueRegistrationOptions" = "crate::Todo"
-"bool|LinkedEditingRangeOptions|LinkedEditingRangeRegistrationOptions" = "crate::Todo"
-"bool|MonikerOptions|MonikerRegistrationOptions" = "crate::Todo"
-"bool|ReferenceOptions" = "crate::Todo"
-"bool|RenameOptions" = "crate::Todo"
-"bool|SaveOptions" = "crate::Todo"
-"bool|SelectionRangeOptions|SelectionRangeRegistrationOptions" = "crate::Todo"
-"bool|SemanticTokensFullDelta" = "crate::Todo"
-"bool|TypeDefinitionOptions|TypeDefinitionRegistrationOptions" = "crate::Todo"
-"bool|TypeHierarchyOptions|TypeHierarchyRegistrationOptions" = "crate::Todo"
-"bool|WorkspaceSymbolOptions" = "crate::Todo"
-"InlineValueText|InlineValueVariableLookup|InlineValueEvaluatableExpression" = "crate::Todo"
-"Location|Vec<Location>" = "crate::Todo"
-"NotebookDocumentFilterNotebookType|NotebookDocumentFilterScheme|NotebookDocumentFilterPattern" = "crate::Todo"
-"Pattern|RelativePattern" = "crate::Todo"
-"Range|PrepareRenamePlaceholder|PrepareRenameDefaultBehavior" = "crate::Todo"
-"RelatedFullDocumentDiagnosticReport|RelatedUnchangedDocumentDiagnosticReport" = "crate::Todo"
-"TextDocumentContentChangePartial|TextDocumentContentChangeWholeDocument" = "crate::Todo"
-"TextDocumentFilterLanguage|TextDocumentFilterScheme|TextDocumentFilterPattern" = "crate::Todo"
-"TextDocumentFilter|NotebookCellTextDocumentFilter" = "crate::Todo"
-"WorkspaceFullDocumentDiagnosticReport|WorkspaceUnchangedDocumentDiagnosticReport" = "crate::Todo"
+"Declaration|Vec<DeclarationLink>".ref = "crate::Todo"
+"Definition|Vec<DefinitionLink>".ref = "crate::Todo"
+"InlineCompletionList|Vec<InlineCompletionItem>".ref = "crate::Todo"
+"SemanticTokensPartialResult|SemanticTokensDeltaPartialResult".ref = "crate::Todo"
+"SemanticTokens|SemanticTokensDelta".ref = "crate::Todo"
+"Vec<CompletionItem>|CompletionList".ref = "crate::Todo"
+"Vec<Location>|Vec<DeclarationLink>".ref = "crate::Todo"
+"Vec<Location>|Vec<DefinitionLink>".ref = "crate::Todo"
+"Vec<SymbolInformation>|Vec<DocumentSymbol>".ref = "crate::Todo"
+"Vec<SymbolInformation>|Vec<WorkspaceSymbol>".ref = "crate::Todo"
+"String|Vec<InlayHintLabelPart>".ref = "crate::Todo"
+"DiagnosticOptions|DiagnosticRegistrationOptions".ref = "crate::Todo"
+"FullDocumentDiagnosticReport|UnchangedDocumentDiagnosticReport".ref = "crate::Todo"
+"Location|LocationUriOnly".ref = "crate::Todo"
+"MarkupContent|MarkedString|Vec<MarkedString>".ref = "crate::Todo"
+"NotebookDocumentFilterWithNotebook|NotebookDocumentFilterWithCells".ref = "crate::Todo"
+"NotebookDocumentSyncOptions|NotebookDocumentSyncRegistrationOptions".ref = "crate::Todo"
+"Range|EditRangeWithInsertReplace".ref = "crate::Todo"
+"SemanticTokensOptions|SemanticTokensRegistrationOptions".ref = "crate::Todo"
+"String|(u32,u32)".ref = "crate::Todo"
+"String|MarkupContent".ref = "crate::Todo"
+"String|StringValue".ref = "crate::Todo"
+"String|Vec<String>".ref = "crate::Todo"
+"String|bool".ref = "crate::Todo"
+"TextDocumentContentOptions|TextDocumentContentRegistrationOptions".ref = "crate::Todo"
+"TextDocumentSyncOptions|TextDocumentSyncKind".ref = "crate::Todo"
+"TextEdit|AnnotatedTextEdit|SnippetTextEdit".ref = "crate::Todo"
+"TextEdit|InsertReplaceEdit".ref = "crate::Todo"
+"WorkspaceFolder|Uri".ref = "crate::Todo"
+"bool|CallHierarchyOptions|CallHierarchyRegistrationOptions".ref = "crate::Todo"
+"bool|ClientSemanticTokensRequestFullDelta".ref = "crate::Todo"
+"bool|CodeActionOptions".ref = "crate::Todo"
+"bool|DeclarationOptions|DeclarationRegistrationOptions".ref = "crate::Todo"
+"bool|DefinitionOptions".ref = "crate::Todo"
+"bool|DocumentColorOptions|DocumentColorRegistrationOptions".ref = "crate::Todo"
+"bool|DocumentFormattingOptions".ref = "crate::Todo"
+"bool|DocumentHighlightOptions".ref = "crate::Todo"
+"bool|DocumentRangeFormattingOptions".ref = "crate::Todo"
+"bool|DocumentSymbolOptions".ref = "crate::Todo"
+"bool|FoldingRangeOptions|FoldingRangeRegistrationOptions".ref = "crate::Todo"
+"bool|HoverOptions".ref = "crate::Todo"
+"bool|ImplementationOptions|ImplementationRegistrationOptions".ref = "crate::Todo"
+"bool|InlayHintOptions|InlayHintRegistrationOptions".ref = "crate::Todo"
+"bool|InlineCompletionOptions".ref = "crate::Todo"
+"bool|InlineValueOptions|InlineValueRegistrationOptions".ref = "crate::Todo"
+"bool|LinkedEditingRangeOptions|LinkedEditingRangeRegistrationOptions".ref = "crate::Todo"
+"bool|MonikerOptions|MonikerRegistrationOptions".ref = "crate::Todo"
+"bool|ReferenceOptions".ref = "crate::Todo"
+"bool|RenameOptions".ref = "crate::Todo"
+"bool|SaveOptions".ref = "crate::Todo"
+"bool|SelectionRangeOptions|SelectionRangeRegistrationOptions".ref = "crate::Todo"
+"bool|SemanticTokensFullDelta".ref = "crate::Todo"
+"bool|TypeDefinitionOptions|TypeDefinitionRegistrationOptions".ref = "crate::Todo"
+"bool|TypeHierarchyOptions|TypeHierarchyRegistrationOptions".ref = "crate::Todo"
+"bool|WorkspaceSymbolOptions".ref = "crate::Todo"
+"InlineValueText|InlineValueVariableLookup|InlineValueEvaluatableExpression".ref = "crate::Todo"
+"Location|Vec<Location>".ref = "crate::Todo"
+"NotebookDocumentFilterNotebookType|NotebookDocumentFilterScheme|NotebookDocumentFilterPattern".ref = "crate::Todo"
+"Pattern|RelativePattern".ref = "crate::Todo"
+"Range|PrepareRenamePlaceholder|PrepareRenameDefaultBehavior".ref = "crate::Todo"
+"RelatedFullDocumentDiagnosticReport|RelatedUnchangedDocumentDiagnosticReport".ref = "crate::Todo"
+"TextDocumentContentChangePartial|TextDocumentContentChangeWholeDocument".ref = "crate::Todo"
+"TextDocumentFilterLanguage|TextDocumentFilterScheme|TextDocumentFilterPattern".ref = "crate::Todo"
+"TextDocumentFilter|NotebookCellTextDocumentFilter".ref = "crate::Todo"
+"WorkspaceFullDocumentDiagnosticReport|WorkspaceUnchangedDocumentDiagnosticReport".ref = "crate::Todo"
 
 [structs]
 # struggle to make the enum
-WorkDoneProgressBegin = "772515a1"
-WorkDoneProgressReport = "3c5e33b1"
-WorkDoneProgressEnd = "f29d183a"
+WorkDoneProgressBegin = { hash = "772515a1" }
+WorkDoneProgressReport = { hash = "3c5e33b1" }
+WorkDoneProgressEnd = { hash = "f29d183a" }
 
 # recursive type
-SelectionRange = "34f57c42"
+SelectionRange = { hash = "34f57c42" }
 
-AnnotatedTextEdit = true
-ApplyWorkspaceEditParams = true
-ApplyWorkspaceEditResult = true
-BaseSymbolInformation = true
-CallHierarchyClientCapabilities = true
-CallHierarchyIncomingCall = true
-CallHierarchyIncomingCallsParams = true
-CallHierarchyItem = true
-CallHierarchyOptions = true
-CallHierarchyOutgoingCall = true
-CallHierarchyOutgoingCallsParams = true
-CallHierarchyPrepareParams = true
-CallHierarchyRegistrationOptions = true
-CancelParams = true
-ChangeAnnotation = true
-ChangeAnnotationsSupportOptions = true
-ClientCapabilities = true
-ClientCodeActionKindOptions = true
-ClientCodeActionLiteralOptions = true
-ClientCodeActionResolveOptions = true
-ClientCodeLensResolveOptions = true
-ClientCompletionItemInsertTextModeOptions = true
-ClientCompletionItemOptions = true
-ClientCompletionItemOptionsKind = true
-ClientCompletionItemResolveOptions = true
-ClientDiagnosticsTagOptions = true
-ClientFoldingRangeKindOptions = true
-ClientFoldingRangeOptions = true
-ClientInfo = true
-ClientInlayHintResolveOptions = true
-ClientSemanticTokensRequestFullDelta = true
-ClientSemanticTokensRequestOptions = true
-ClientShowMessageActionItemOptions = true
-ClientSignatureInformationOptions = true
-ClientSignatureParameterInformationOptions = true
-ClientSymbolKindOptions = true
-ClientSymbolResolveOptions = true
-ClientSymbolTagOptions = true
-CodeAction = true
-CodeActionClientCapabilities = true
-CodeActionContext = true
-CodeActionDisabled = true
-CodeActionKindDocumentation = true
-CodeActionOptions = true
-CodeActionParams = true
-CodeActionRegistrationOptions = true
-CodeActionTagOptions = true
-CodeDescription = true
-CodeLens = true
-CodeLensClientCapabilities = true
-CodeLensOptions = true
-CodeLensParams = true
-CodeLensRegistrationOptions = true
-CodeLensWorkspaceClientCapabilities = true
-Color = true
-ColorInformation = true
-ColorPresentation = true
-ColorPresentationParams = true
-Command = true
-CompletionClientCapabilities = true
-CompletionContext = true
-CompletionItem = true
-CompletionItemApplyKinds = true
-CompletionItemDefaults = true
-CompletionItemLabelDetails = true
-CompletionItemTagOptions = true
-CompletionList = true
-CompletionListCapabilities = true
-CompletionOptions = true
-CompletionParams = true
-CompletionRegistrationOptions = true
-ConfigurationItem = true
-ConfigurationParams = true
-CreateFile = true
-CreateFileOptions = true
-CreateFilesParams = true
-DeclarationClientCapabilities = true
-DeclarationOptions = true
-DeclarationParams = true
-DeclarationRegistrationOptions = true
-DefinitionClientCapabilities = true
-DefinitionOptions = true
-DefinitionParams = true
-DefinitionRegistrationOptions = true
-DeleteFile = true
-DeleteFileOptions = true
-DeleteFilesParams = true
-Diagnostic = true
-DiagnosticClientCapabilities = true
-DiagnosticOptions = true
-DiagnosticRegistrationOptions = true
-DiagnosticRelatedInformation = true
-DiagnosticServerCancellationData = true
-DiagnosticWorkspaceClientCapabilities = true
-DiagnosticsCapabilities = true
-DidChangeConfigurationClientCapabilities = true
-DidChangeConfigurationParams = true
-DidChangeConfigurationRegistrationOptions = true
-DidChangeNotebookDocumentParams = true
-DidChangeTextDocumentParams = true
-DidChangeWatchedFilesClientCapabilities = true
-DidChangeWatchedFilesParams = true
-DidChangeWatchedFilesRegistrationOptions = true
-DidChangeWorkspaceFoldersParams = true
-DidCloseNotebookDocumentParams = true
-DidCloseTextDocumentParams = true
-DidOpenNotebookDocumentParams = true
-DidOpenTextDocumentParams = true
-DidSaveNotebookDocumentParams = true
-DidSaveTextDocumentParams = true
-DocumentColorClientCapabilities = true
-DocumentColorOptions = true
-DocumentColorParams = true
-DocumentColorRegistrationOptions = true
-DocumentDiagnosticParams = true
-DocumentDiagnosticReportPartialResult = true
-DocumentFormattingClientCapabilities = true
-DocumentFormattingOptions = true
-DocumentFormattingParams = true
-DocumentFormattingRegistrationOptions = true
-DocumentHighlight = true
-DocumentHighlightClientCapabilities = true
-DocumentHighlightOptions = true
-DocumentHighlightParams = true
-DocumentHighlightRegistrationOptions = true
-DocumentLink = true
-DocumentLinkClientCapabilities = true
-DocumentLinkOptions = true
-DocumentLinkParams = true
-DocumentLinkRegistrationOptions = true
-DocumentOnTypeFormattingClientCapabilities = true
-DocumentOnTypeFormattingOptions = true
-DocumentOnTypeFormattingParams = true
-DocumentOnTypeFormattingRegistrationOptions = true
-DocumentRangeFormattingClientCapabilities = true
-DocumentRangeFormattingOptions = true
-DocumentRangeFormattingParams = true
-DocumentRangeFormattingRegistrationOptions = true
-DocumentRangesFormattingParams = true
-DocumentSymbol = true
-DocumentSymbolClientCapabilities = true
-DocumentSymbolOptions = true
-DocumentSymbolParams = true
-DocumentSymbolRegistrationOptions = true
-EditRangeWithInsertReplace = true
-ExecuteCommandClientCapabilities = true
-ExecuteCommandOptions = true
-ExecuteCommandParams = true
-ExecuteCommandRegistrationOptions = true
-ExecutionSummary = true
-FileCreate = true
-FileDelete = true
-FileEvent = true
-FileOperationClientCapabilities = true
-FileOperationFilter = true
-FileOperationOptions = true
-FileOperationPattern = true
-FileOperationPatternOptions = true
-FileOperationRegistrationOptions = true
-FileRename = true
-FileSystemWatcher = true
-FoldingRange = true
-FoldingRangeClientCapabilities = true
-FoldingRangeOptions = true
-FoldingRangeParams = true
-FoldingRangeRegistrationOptions = true
-FoldingRangeWorkspaceClientCapabilities = true
-FormattingOptions = true
-FullDocumentDiagnosticReport = true
-GeneralClientCapabilities = true
-Hover = true
-HoverClientCapabilities = true
-HoverOptions = true
-HoverParams = true
-HoverRegistrationOptions = true
-ImplementationClientCapabilities = true
-ImplementationOptions = true
-ImplementationParams = true
-ImplementationRegistrationOptions = true
-InitializeError = true
-InitializeParams = true
-InitializeResult = true
-InitializedParams = true
-InlayHint = true
-InlayHintClientCapabilities = true
-InlayHintLabelPart = true
-InlayHintOptions = true
-InlayHintParams = true
-InlayHintRegistrationOptions = true
-InlayHintWorkspaceClientCapabilities = true
-InlineCompletionClientCapabilities = true
-InlineCompletionContext = true
-InlineCompletionItem = true
-InlineCompletionList = true
-InlineCompletionOptions = true
-InlineCompletionParams = true
-InlineCompletionRegistrationOptions = true
-InlineValueClientCapabilities = true
-InlineValueContext = true
-InlineValueEvaluatableExpression = true
-InlineValueOptions = true
-InlineValueParams = true
-InlineValueRegistrationOptions = true
-InlineValueText = true
-InlineValueVariableLookup = true
-InlineValueWorkspaceClientCapabilities = true
-InsertReplaceEdit = true
-LinkedEditingRangeClientCapabilities = true
-LinkedEditingRangeOptions = true
-LinkedEditingRangeParams = true
-LinkedEditingRangeRegistrationOptions = true
-LinkedEditingRanges = true
-Location = true
-LocationLink = true
-LocationUriOnly = true
-LogMessageParams = true
-LogTraceParams = true
-MarkdownClientCapabilities = true
-MarkedStringWithLanguage = true
-MarkupContent = true
-MessageActionItem = true
-Moniker = true
-MonikerClientCapabilities = true
-MonikerOptions = true
-MonikerParams = true
-MonikerRegistrationOptions = true
-NotebookCell = true
-NotebookCellArrayChange = true
-NotebookCellLanguage = true
-NotebookCellTextDocumentFilter = true
-NotebookDocument = true
-NotebookDocumentCellChangeStructure = true
-NotebookDocumentCellChanges = true
-NotebookDocumentCellContentChanges = true
-NotebookDocumentChangeEvent = true
-NotebookDocumentClientCapabilities = true
-NotebookDocumentFilterNotebookType = true
-NotebookDocumentFilterPattern = true
-NotebookDocumentFilterScheme = true
-NotebookDocumentFilterWithCells = true
-NotebookDocumentFilterWithNotebook = true
-NotebookDocumentIdentifier = true
-NotebookDocumentSyncClientCapabilities = true
-NotebookDocumentSyncOptions = true
-NotebookDocumentSyncRegistrationOptions = true
-OptionalVersionedTextDocumentIdentifier = true
-ParameterInformation = true
-PartialResultParams = true
-Position = true
-PrepareRenameDefaultBehavior = true
-PrepareRenameParams = true
-PrepareRenamePlaceholder = true
-PreviousResultId = true
-ProgressParams = true
-PublishDiagnosticsClientCapabilities = true
-PublishDiagnosticsParams = true
-Range = true
-ReferenceClientCapabilities = true
-ReferenceContext = true
-ReferenceOptions = true
-ReferenceParams = true
-ReferenceRegistrationOptions = true
-Registration = true
-RegistrationParams = true
-RegularExpressionsClientCapabilities = true
-RelatedFullDocumentDiagnosticReport = true
-RelatedUnchangedDocumentDiagnosticReport = true
-RelativePattern = true
-RenameClientCapabilities = true
-RenameFile = true
-RenameFileOptions = true
-RenameFilesParams = true
-RenameOptions = true
-RenameParams = true
-RenameRegistrationOptions = true
-ResourceOperation = true
-SaveOptions = true
-SelectedCompletionInfo = true
-SelectionRangeClientCapabilities = true
-SelectionRangeOptions = true
-SelectionRangeParams = true
-SelectionRangeRegistrationOptions = true
-SemanticTokens = true
-SemanticTokensClientCapabilities = true
-SemanticTokensDelta = true
-SemanticTokensDeltaParams = true
-SemanticTokensDeltaPartialResult = true
-SemanticTokensEdit = true
-SemanticTokensFullDelta = true
-SemanticTokensLegend = true
-SemanticTokensOptions = true
-SemanticTokensParams = true
-SemanticTokensPartialResult = true
-SemanticTokensRangeParams = true
-SemanticTokensRegistrationOptions = true
-SemanticTokensWorkspaceClientCapabilities = true
-ServerCapabilities = true
-ServerCompletionItemOptions = true
-ServerInfo = true
-SetTraceParams = true
-ShowDocumentClientCapabilities = true
-ShowDocumentParams = true
-ShowDocumentResult = true
-ShowMessageParams = true
-ShowMessageRequestClientCapabilities = true
-ShowMessageRequestParams = true
-SignatureHelp = true
-SignatureHelpClientCapabilities = true
-SignatureHelpContext = true
-SignatureHelpOptions = true
-SignatureHelpParams = true
-SignatureHelpRegistrationOptions = true
-SignatureInformation = true
-SnippetTextEdit = true
-StaleRequestSupportOptions = true
-StaticRegistrationOptions = true
-StringValue = true
-SymbolInformation = true
-TextDocumentChangeRegistrationOptions = true
-TextDocumentClientCapabilities = true
-TextDocumentContentChangePartial = true
-TextDocumentContentChangeWholeDocument = true
-TextDocumentContentClientCapabilities = true
-TextDocumentContentOptions = true
-TextDocumentContentParams = true
-TextDocumentContentRefreshParams = true
-TextDocumentContentRegistrationOptions = true
-TextDocumentContentResult = true
-TextDocumentEdit = true
-TextDocumentFilterClientCapabilities = true
-TextDocumentFilterLanguage = true
-TextDocumentFilterPattern = true
-TextDocumentFilterScheme = true
-TextDocumentIdentifier = true
-TextDocumentItem = true
-TextDocumentPositionParams = true
-TextDocumentRegistrationOptions = true
-TextDocumentSaveRegistrationOptions = true
-TextDocumentSyncClientCapabilities = true
-TextDocumentSyncOptions = true
-TextEdit = true
-TypeDefinitionClientCapabilities = true
-TypeDefinitionOptions = true
-TypeDefinitionParams = true
-TypeDefinitionRegistrationOptions = true
-TypeHierarchyClientCapabilities = true
-TypeHierarchyItem = true
-TypeHierarchyOptions = true
-TypeHierarchyPrepareParams = true
-TypeHierarchyRegistrationOptions = true
-TypeHierarchySubtypesParams = true
-TypeHierarchySupertypesParams = true
-UnchangedDocumentDiagnosticReport = true
-Unregistration = true
-UnregistrationParams = true
-VersionedNotebookDocumentIdentifier = true
-VersionedTextDocumentIdentifier = true
-WillSaveTextDocumentParams = true
-WindowClientCapabilities = true
-WorkDoneProgressCancelParams = true
-WorkDoneProgressCreateParams = true
-WorkDoneProgressOptions = true
-WorkDoneProgressParams = true
-WorkspaceClientCapabilities = true
-WorkspaceDiagnosticParams = true
-WorkspaceDiagnosticReport = true
-WorkspaceDiagnosticReportPartialResult = true
-WorkspaceEdit = true
-WorkspaceEditClientCapabilities = true
-WorkspaceEditMetadata = true
-WorkspaceFolder = true
-WorkspaceFoldersChangeEvent = true
-WorkspaceFoldersInitializeParams = true
-WorkspaceFoldersServerCapabilities = true
-WorkspaceFullDocumentDiagnosticReport = true
-WorkspaceOptions = true
-WorkspaceSymbol = true
-WorkspaceSymbolClientCapabilities = true
-WorkspaceSymbolOptions = true
-WorkspaceSymbolParams = true
-WorkspaceSymbolRegistrationOptions = true
-WorkspaceUnchangedDocumentDiagnosticReport = true
-_InitializeParams = true
+AnnotatedTextEdit = { generate = true }
+ApplyWorkspaceEditParams = { generate = true }
+ApplyWorkspaceEditResult = { generate = true }
+BaseSymbolInformation = { generate = true }
+CallHierarchyClientCapabilities = { generate = true }
+CallHierarchyIncomingCall = { generate = true }
+CallHierarchyIncomingCallsParams = { generate = true }
+CallHierarchyItem = { generate = true }
+CallHierarchyOptions = { generate = true }
+CallHierarchyOutgoingCall = { generate = true }
+CallHierarchyOutgoingCallsParams = { generate = true }
+CallHierarchyPrepareParams = { generate = true }
+CallHierarchyRegistrationOptions = { generate = true }
+CancelParams = { generate = true }
+ChangeAnnotation = { generate = true }
+ChangeAnnotationsSupportOptions = { generate = true }
+ClientCapabilities = { generate = true }
+ClientCodeActionKindOptions = { generate = true }
+ClientCodeActionLiteralOptions = { generate = true }
+ClientCodeActionResolveOptions = { generate = true }
+ClientCodeLensResolveOptions = { generate = true }
+ClientCompletionItemInsertTextModeOptions = { generate = true }
+ClientCompletionItemOptions = { generate = true }
+ClientCompletionItemOptionsKind = { generate = true }
+ClientCompletionItemResolveOptions = { generate = true }
+ClientDiagnosticsTagOptions = { generate = true }
+ClientFoldingRangeKindOptions = { generate = true }
+ClientFoldingRangeOptions = { generate = true }
+ClientInfo = { generate = true }
+ClientInlayHintResolveOptions = { generate = true }
+ClientSemanticTokensRequestFullDelta = { generate = true }
+ClientSemanticTokensRequestOptions = { generate = true }
+ClientShowMessageActionItemOptions = { generate = true }
+ClientSignatureInformationOptions = { generate = true }
+ClientSignatureParameterInformationOptions = { generate = true }
+ClientSymbolKindOptions = { generate = true }
+ClientSymbolResolveOptions = { generate = true }
+ClientSymbolTagOptions = { generate = true }
+CodeAction = { generate = true }
+CodeActionClientCapabilities = { generate = true }
+CodeActionContext = { generate = true }
+CodeActionDisabled = { generate = true }
+CodeActionKindDocumentation = { generate = true }
+CodeActionOptions = { generate = true }
+CodeActionParams = { generate = true }
+CodeActionRegistrationOptions = { generate = true }
+CodeActionTagOptions = { generate = true }
+CodeDescription = { generate = true }
+CodeLens = { generate = true }
+CodeLensClientCapabilities = { generate = true }
+CodeLensOptions = { generate = true }
+CodeLensParams = { generate = true }
+CodeLensRegistrationOptions = { generate = true }
+CodeLensWorkspaceClientCapabilities = { generate = true }
+Color = { generate = true }
+ColorInformation = { generate = true }
+ColorPresentation = { generate = true }
+ColorPresentationParams = { generate = true }
+Command = { generate = true }
+CompletionClientCapabilities = { generate = true }
+CompletionContext = { generate = true }
+CompletionItem = { generate = true }
+CompletionItemApplyKinds = { generate = true }
+CompletionItemDefaults = { generate = true }
+CompletionItemLabelDetails = { generate = true }
+CompletionItemTagOptions = { generate = true }
+CompletionList = { generate = true }
+CompletionListCapabilities = { generate = true }
+CompletionOptions = { generate = true }
+CompletionParams = { generate = true }
+CompletionRegistrationOptions = { generate = true }
+ConfigurationItem = { generate = true }
+ConfigurationParams = { generate = true }
+CreateFile = { generate = true }
+CreateFileOptions = { generate = true }
+CreateFilesParams = { generate = true }
+DeclarationClientCapabilities = { generate = true }
+DeclarationOptions = { generate = true }
+DeclarationParams = { generate = true }
+DeclarationRegistrationOptions = { generate = true }
+DefinitionClientCapabilities = { generate = true }
+DefinitionOptions = { generate = true }
+DefinitionParams = { generate = true }
+DefinitionRegistrationOptions = { generate = true }
+DeleteFile = { generate = true }
+DeleteFileOptions = { generate = true }
+DeleteFilesParams = { generate = true }
+Diagnostic = { generate = true }
+DiagnosticClientCapabilities = { generate = true }
+DiagnosticOptions = { generate = true }
+DiagnosticRegistrationOptions = { generate = true }
+DiagnosticRelatedInformation = { generate = true }
+DiagnosticServerCancellationData = { generate = true }
+DiagnosticWorkspaceClientCapabilities = { generate = true }
+DiagnosticsCapabilities = { generate = true }
+DidChangeConfigurationClientCapabilities = { generate = true }
+DidChangeConfigurationParams = { generate = true }
+DidChangeConfigurationRegistrationOptions = { generate = true }
+DidChangeNotebookDocumentParams = { generate = true }
+DidChangeTextDocumentParams = { generate = true }
+DidChangeWatchedFilesClientCapabilities = { generate = true }
+DidChangeWatchedFilesParams = { generate = true }
+DidChangeWatchedFilesRegistrationOptions = { generate = true }
+DidChangeWorkspaceFoldersParams = { generate = true }
+DidCloseNotebookDocumentParams = { generate = true }
+DidCloseTextDocumentParams = { generate = true }
+DidOpenNotebookDocumentParams = { generate = true }
+DidOpenTextDocumentParams = { generate = true }
+DidSaveNotebookDocumentParams = { generate = true }
+DidSaveTextDocumentParams = { generate = true }
+DocumentColorClientCapabilities = { generate = true }
+DocumentColorOptions = { generate = true }
+DocumentColorParams = { generate = true }
+DocumentColorRegistrationOptions = { generate = true }
+DocumentDiagnosticParams = { generate = true }
+DocumentDiagnosticReportPartialResult = { generate = true }
+DocumentFormattingClientCapabilities = { generate = true }
+DocumentFormattingOptions = { generate = true }
+DocumentFormattingParams = { generate = true }
+DocumentFormattingRegistrationOptions = { generate = true }
+DocumentHighlight = { generate = true }
+DocumentHighlightClientCapabilities = { generate = true }
+DocumentHighlightOptions = { generate = true }
+DocumentHighlightParams = { generate = true }
+DocumentHighlightRegistrationOptions = { generate = true }
+DocumentLink = { generate = true }
+DocumentLinkClientCapabilities = { generate = true }
+DocumentLinkOptions = { generate = true }
+DocumentLinkParams = { generate = true }
+DocumentLinkRegistrationOptions = { generate = true }
+DocumentOnTypeFormattingClientCapabilities = { generate = true }
+DocumentOnTypeFormattingOptions = { generate = true }
+DocumentOnTypeFormattingParams = { generate = true }
+DocumentOnTypeFormattingRegistrationOptions = { generate = true }
+DocumentRangeFormattingClientCapabilities = { generate = true }
+DocumentRangeFormattingOptions = { generate = true }
+DocumentRangeFormattingParams = { generate = true }
+DocumentRangeFormattingRegistrationOptions = { generate = true }
+DocumentRangesFormattingParams = { generate = true }
+DocumentSymbol = { generate = true }
+DocumentSymbolClientCapabilities = { generate = true }
+DocumentSymbolOptions = { generate = true }
+DocumentSymbolParams = { generate = true }
+DocumentSymbolRegistrationOptions = { generate = true }
+EditRangeWithInsertReplace = { generate = true }
+ExecuteCommandClientCapabilities = { generate = true }
+ExecuteCommandOptions = { generate = true }
+ExecuteCommandParams = { generate = true }
+ExecuteCommandRegistrationOptions = { generate = true }
+ExecutionSummary = { generate = true }
+FileCreate = { generate = true }
+FileDelete = { generate = true }
+FileEvent = { generate = true }
+FileOperationClientCapabilities = { generate = true }
+FileOperationFilter = { generate = true }
+FileOperationOptions = { generate = true }
+FileOperationPattern = { generate = true }
+FileOperationPatternOptions = { generate = true }
+FileOperationRegistrationOptions = { generate = true }
+FileRename = { generate = true }
+FileSystemWatcher = { generate = true }
+FoldingRange = { generate = true }
+FoldingRangeClientCapabilities = { generate = true }
+FoldingRangeOptions = { generate = true }
+FoldingRangeParams = { generate = true }
+FoldingRangeRegistrationOptions = { generate = true }
+FoldingRangeWorkspaceClientCapabilities = { generate = true }
+FormattingOptions = { generate = true }
+FullDocumentDiagnosticReport = { generate = true }
+GeneralClientCapabilities = { generate = true }
+Hover = { generate = true }
+HoverClientCapabilities = { generate = true }
+HoverOptions = { generate = true }
+HoverParams = { generate = true }
+HoverRegistrationOptions = { generate = true }
+ImplementationClientCapabilities = { generate = true }
+ImplementationOptions = { generate = true }
+ImplementationParams = { generate = true }
+ImplementationRegistrationOptions = { generate = true }
+InitializeError = { generate = true }
+InitializeParams = { generate = true }
+InitializeResult = { generate = true }
+InitializedParams = { generate = true }
+InlayHint = { generate = true }
+InlayHintClientCapabilities = { generate = true }
+InlayHintLabelPart = { generate = true }
+InlayHintOptions = { generate = true }
+InlayHintParams = { generate = true }
+InlayHintRegistrationOptions = { generate = true }
+InlayHintWorkspaceClientCapabilities = { generate = true }
+InlineCompletionClientCapabilities = { generate = true }
+InlineCompletionContext = { generate = true }
+InlineCompletionItem = { generate = true }
+InlineCompletionList = { generate = true }
+InlineCompletionOptions = { generate = true }
+InlineCompletionParams = { generate = true }
+InlineCompletionRegistrationOptions = { generate = true }
+InlineValueClientCapabilities = { generate = true }
+InlineValueContext = { generate = true }
+InlineValueEvaluatableExpression = { generate = true }
+InlineValueOptions = { generate = true }
+InlineValueParams = { generate = true }
+InlineValueRegistrationOptions = { generate = true }
+InlineValueText = { generate = true }
+InlineValueVariableLookup = { generate = true }
+InlineValueWorkspaceClientCapabilities = { generate = true }
+InsertReplaceEdit = { generate = true }
+LinkedEditingRangeClientCapabilities = { generate = true }
+LinkedEditingRangeOptions = { generate = true }
+LinkedEditingRangeParams = { generate = true }
+LinkedEditingRangeRegistrationOptions = { generate = true }
+LinkedEditingRanges = { generate = true }
+Location = { generate = true }
+LocationLink = { generate = true }
+LocationUriOnly = { generate = true }
+LogMessageParams = { generate = true }
+LogTraceParams = { generate = true }
+MarkdownClientCapabilities = { generate = true }
+MarkedStringWithLanguage = { generate = true }
+MarkupContent = { generate = true }
+MessageActionItem = { generate = true }
+Moniker = { generate = true }
+MonikerClientCapabilities = { generate = true }
+MonikerOptions = { generate = true }
+MonikerParams = { generate = true }
+MonikerRegistrationOptions = { generate = true }
+NotebookCell = { generate = true }
+NotebookCellArrayChange = { generate = true }
+NotebookCellLanguage = { generate = true }
+NotebookCellTextDocumentFilter = { generate = true }
+NotebookDocument = { generate = true }
+NotebookDocumentCellChangeStructure = { generate = true }
+NotebookDocumentCellChanges = { generate = true }
+NotebookDocumentCellContentChanges = { generate = true }
+NotebookDocumentChangeEvent = { generate = true }
+NotebookDocumentClientCapabilities = { generate = true }
+NotebookDocumentFilterNotebookType = { generate = true }
+NotebookDocumentFilterPattern = { generate = true }
+NotebookDocumentFilterScheme = { generate = true }
+NotebookDocumentFilterWithCells = { generate = true }
+NotebookDocumentFilterWithNotebook = { generate = true }
+NotebookDocumentIdentifier = { generate = true }
+NotebookDocumentSyncClientCapabilities = { generate = true }
+NotebookDocumentSyncOptions = { generate = true }
+NotebookDocumentSyncRegistrationOptions = { generate = true }
+OptionalVersionedTextDocumentIdentifier = { generate = true }
+ParameterInformation = { generate = true }
+PartialResultParams = { generate = true }
+Position = { generate = true }
+PrepareRenameDefaultBehavior = { generate = true }
+PrepareRenameParams = { generate = true }
+PrepareRenamePlaceholder = { generate = true }
+PreviousResultId = { generate = true }
+ProgressParams = { generate = true }
+PublishDiagnosticsClientCapabilities = { generate = true }
+PublishDiagnosticsParams = { generate = true }
+Range = { generate = true }
+ReferenceClientCapabilities = { generate = true }
+ReferenceContext = { generate = true }
+ReferenceOptions = { generate = true }
+ReferenceParams = { generate = true }
+ReferenceRegistrationOptions = { generate = true }
+Registration = { generate = true }
+RegistrationParams = { generate = true }
+RegularExpressionsClientCapabilities = { generate = true }
+RelatedFullDocumentDiagnosticReport = { generate = true }
+RelatedUnchangedDocumentDiagnosticReport = { generate = true }
+RelativePattern = { generate = true }
+RenameClientCapabilities = { generate = true }
+RenameFile = { generate = true }
+RenameFileOptions = { generate = true }
+RenameFilesParams = { generate = true }
+RenameOptions = { generate = true }
+RenameParams = { generate = true }
+RenameRegistrationOptions = { generate = true }
+ResourceOperation = { generate = true }
+SaveOptions = { generate = true }
+SelectedCompletionInfo = { generate = true }
+SelectionRangeClientCapabilities = { generate = true }
+SelectionRangeOptions = { generate = true }
+SelectionRangeParams = { generate = true }
+SelectionRangeRegistrationOptions = { generate = true }
+SemanticTokens = { generate = true }
+SemanticTokensClientCapabilities = { generate = true }
+SemanticTokensDelta = { generate = true }
+SemanticTokensDeltaParams = { generate = true }
+SemanticTokensDeltaPartialResult = { generate = true }
+SemanticTokensEdit = { generate = true }
+SemanticTokensFullDelta = { generate = true }
+SemanticTokensLegend = { generate = true }
+SemanticTokensOptions = { generate = true }
+SemanticTokensParams = { generate = true }
+SemanticTokensPartialResult = { generate = true }
+SemanticTokensRangeParams = { generate = true }
+SemanticTokensRegistrationOptions = { generate = true }
+SemanticTokensWorkspaceClientCapabilities = { generate = true }
+ServerCapabilities = { generate = true }
+ServerCompletionItemOptions = { generate = true }
+ServerInfo = { generate = true }
+SetTraceParams = { generate = true }
+ShowDocumentClientCapabilities = { generate = true }
+ShowDocumentParams = { generate = true }
+ShowDocumentResult = { generate = true }
+ShowMessageParams = { generate = true }
+ShowMessageRequestClientCapabilities = { generate = true }
+ShowMessageRequestParams = { generate = true }
+SignatureHelp = { generate = true }
+SignatureHelpClientCapabilities = { generate = true }
+SignatureHelpContext = { generate = true }
+SignatureHelpOptions = { generate = true }
+SignatureHelpParams = { generate = true }
+SignatureHelpRegistrationOptions = { generate = true }
+SignatureInformation = { generate = true }
+SnippetTextEdit = { generate = true }
+StaleRequestSupportOptions = { generate = true }
+StaticRegistrationOptions = { generate = true }
+StringValue = { generate = true }
+SymbolInformation = { generate = true }
+TextDocumentChangeRegistrationOptions = { generate = true }
+TextDocumentClientCapabilities = { generate = true }
+TextDocumentContentChangePartial = { generate = true }
+TextDocumentContentChangeWholeDocument = { generate = true }
+TextDocumentContentClientCapabilities = { generate = true }
+TextDocumentContentOptions = { generate = true }
+TextDocumentContentParams = { generate = true }
+TextDocumentContentRefreshParams = { generate = true }
+TextDocumentContentRegistrationOptions = { generate = true }
+TextDocumentContentResult = { generate = true }
+TextDocumentEdit = { generate = true }
+TextDocumentFilterClientCapabilities = { generate = true }
+TextDocumentFilterLanguage = { generate = true }
+TextDocumentFilterPattern = { generate = true }
+TextDocumentFilterScheme = { generate = true }
+TextDocumentIdentifier = { generate = true }
+TextDocumentItem = { generate = true }
+TextDocumentPositionParams = { generate = true }
+TextDocumentRegistrationOptions = { generate = true }
+TextDocumentSaveRegistrationOptions = { generate = true }
+TextDocumentSyncClientCapabilities = { generate = true }
+TextDocumentSyncOptions = { generate = true }
+TextEdit = { generate = true }
+TypeDefinitionClientCapabilities = { generate = true }
+TypeDefinitionOptions = { generate = true }
+TypeDefinitionParams = { generate = true }
+TypeDefinitionRegistrationOptions = { generate = true }
+TypeHierarchyClientCapabilities = { generate = true }
+TypeHierarchyItem = { generate = true }
+TypeHierarchyOptions = { generate = true }
+TypeHierarchyPrepareParams = { generate = true }
+TypeHierarchyRegistrationOptions = { generate = true }
+TypeHierarchySubtypesParams = { generate = true }
+TypeHierarchySupertypesParams = { generate = true }
+UnchangedDocumentDiagnosticReport = { generate = true }
+Unregistration = { generate = true }
+UnregistrationParams = { generate = true }
+VersionedNotebookDocumentIdentifier = { generate = true }
+VersionedTextDocumentIdentifier = { generate = true }
+WillSaveTextDocumentParams = { generate = true }
+WindowClientCapabilities = { generate = true }
+WorkDoneProgressCancelParams = { generate = true }
+WorkDoneProgressCreateParams = { generate = true }
+WorkDoneProgressOptions = { generate = true }
+WorkDoneProgressParams = { generate = true }
+WorkspaceClientCapabilities = { generate = true }
+WorkspaceDiagnosticParams = { generate = true }
+WorkspaceDiagnosticReport = { generate = true }
+WorkspaceDiagnosticReportPartialResult = { generate = true }
+WorkspaceEdit = { generate = true }
+WorkspaceEditClientCapabilities = { generate = true }
+WorkspaceEditMetadata = { generate = true }
+WorkspaceFolder = { generate = true }
+WorkspaceFoldersChangeEvent = { generate = true }
+WorkspaceFoldersInitializeParams = { generate = true }
+WorkspaceFoldersServerCapabilities = { generate = true }
+WorkspaceFullDocumentDiagnosticReport = { generate = true }
+WorkspaceOptions = { generate = true }
+WorkspaceSymbol = { generate = true }
+WorkspaceSymbolClientCapabilities = { generate = true }
+WorkspaceSymbolOptions = { generate = true }
+WorkspaceSymbolParams = { generate = true }
+WorkspaceSymbolRegistrationOptions = { generate = true }
+WorkspaceUnchangedDocumentDiagnosticReport = { generate = true }
+_InitializeParams = { generate = true }
 
 [enums]
-ApplyKind = true
-CodeActionKind = true
-CodeActionTag = true
-CodeActionTriggerKind = true
-CompletionItemKind = true
-CompletionItemTag = true
-CompletionTriggerKind = true
-DiagnosticSeverity = true
-DiagnosticTag = true
-DocumentDiagnosticReportKind = true
-DocumentHighlightKind = true
-ErrorCodes = true
-FailureHandlingKind = true
-FileChangeType = true
-FileOperationPatternKind = true
-FoldingRangeKind = true
-InlayHintKind = true
-InlineCompletionTriggerKind = true
-InsertTextFormat = true
-InsertTextMode = true
-LanguageKind = true
-LSPErrorCodes = true
-MarkupKind = true
-MessageType = true
-MonikerKind = true
-NotebookCellKind = true
-PositionEncodingKind = true
-PrepareSupportDefaultBehavior = true
-ResourceOperationKind = true
-SemanticTokenModifiers = true
-SemanticTokenTypes = true
-SignatureHelpTriggerKind = true
-SymbolKind = true
-SymbolTag = true
-TextDocumentSaveReason = true
-TextDocumentSyncKind = true
-TokenFormat = true
-TraceValue = true
-UniquenessLevel = true
-WatchKind = true
+ApplyKind = { generate = true }
+CodeActionKind = { generate = true }
+CodeActionTag = { generate = true }
+CodeActionTriggerKind = { generate = true }
+CompletionItemKind = { generate = true }
+CompletionItemTag = { generate = true }
+CompletionTriggerKind = { generate = true }
+DiagnosticSeverity = { generate = true }
+DiagnosticTag = { generate = true }
+DocumentDiagnosticReportKind = { generate = true }
+DocumentHighlightKind = { generate = true }
+ErrorCodes = { generate = true }
+FailureHandlingKind = { generate = true }
+FileChangeType = { generate = true }
+FileOperationPatternKind = { generate = true }
+FoldingRangeKind = { generate = true }
+InlayHintKind = { generate = true }
+InlineCompletionTriggerKind = { generate = true }
+InsertTextFormat = { generate = true }
+InsertTextMode = { generate = true }
+LanguageKind = { generate = true }
+LSPErrorCodes = { generate = true }
+MarkupKind = { generate = true }
+MessageType = { generate = true }
+MonikerKind = { generate = true }
+NotebookCellKind = { generate = true }
+PositionEncodingKind = { generate = true }
+PrepareSupportDefaultBehavior = { generate = true }
+ResourceOperationKind = { generate = true }
+SemanticTokenModifiers = { generate = true }
+SemanticTokenTypes = { generate = true }
+SignatureHelpTriggerKind = { generate = true }
+SymbolKind = { generate = true }
+SymbolTag = { generate = true }
+TextDocumentSaveReason = { generate = true }
+TextDocumentSyncKind = { generate = true }
+TokenFormat = { generate = true }
+TraceValue = { generate = true }
+UniquenessLevel = { generate = true }
+WatchKind = { generate = true }
 
 [type-aliases]
-LSPAny = "8500db66"
+LSPAny = { hash = "8500db66" }
 
-ChangeAnnotationIdentifier = true
-Declaration = true
-DeclarationLink = true
-Definition = true
-DefinitionLink = true
-DocumentDiagnosticReport = true
-DocumentFilter = true
-DocumentSelector = true
-GlobPattern = true
-InlineValue = true
-LSPArray = true
-LSPObject = true
-MarkedString = true
-NotebookDocumentFilter = true
-Pattern = true
-PrepareRenameResult = true
-ProgressToken = true
-RegularExpressionEngineKind = true
-TextDocumentContentChangeEvent = true
-TextDocumentFilter = true
-WorkspaceDocumentDiagnosticReport = true
+ChangeAnnotationIdentifier = { generate = true }
+Declaration = { generate = true }
+DeclarationLink = { generate = true }
+Definition = { generate = true }
+DefinitionLink = { generate = true }
+DocumentDiagnosticReport = { generate = true }
+DocumentFilter = { generate = true }
+DocumentSelector = { generate = true }
+GlobPattern = { generate = true }
+InlineValue = { generate = true }
+LSPArray = { generate = true }
+LSPObject = { generate = true }
+MarkedString = { generate = true }
+NotebookDocumentFilter = { generate = true }
+Pattern = { generate = true }
+PrepareRenameResult = { generate = true }
+ProgressToken = { generate = true }
+RegularExpressionEngineKind = { generate = true }
+TextDocumentContentChangeEvent = { generate = true }
+TextDocumentFilter = { generate = true }
+WorkspaceDocumentDiagnosticReport = { generate = true }
