@@ -23,9 +23,10 @@ Server Index Format] (*LSIF*) specification.
 [Language Server Protocol]: https://microsoft.github.io/language-server-protocol/
 [Language Server Index Format]: https://microsoft.github.io/language-server-protocol/specifications/lsif/0.6.0/specification/
 
-Supports LSP version [*3.17*]. Proposed version [*3.18*] features can be
-activated using the `proposed` feature flag.
-> **NOTE** that these are unstable and may change between releases.
+Supports LSP version [*3.17*] and [*3.18*].
+
+> [!WARNING]
+> Version *3.18* is not stable yet and might change in the future.
 
 [*3.17*]: https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification
 [*3.18*]: https://microsoft.github.io/language-server-protocol/specifications/lsp/3.18/specification
