@@ -34,6 +34,16 @@ impl<'de> Deserialize<'de> for Uri {
     }
 }
 
+impl From<&Uri> for Uri {
+    /// Converts an `&Uri` to an [`Uri`].
+    ///
+    /// This clones `uri` and returns the clone.
+    #[inline]
+    fn from(uri: &Uri) -> Self {
+        uri.clone()
+    }
+}
+
 impl From<fluent_uri::Uri<String>> for Uri {
     fn from(uri: fluent_uri::Uri<String>) -> Self {
         Self(uri)
