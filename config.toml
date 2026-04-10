@@ -15,71 +15,72 @@ default-derives = [
 "String|MarkedStringWithLanguage" = { name = "_MarkedString", variants =  ["String", "LanguageString"] }
 "Command|CodeAction" = { name = "CodeActionOrCommand", variants =  ["CodeAction", "Command"] }
 
-"Declaration|Vec<DeclarationLink>".ref = "crate::Todo"
-"Definition|Vec<DefinitionLink>".ref = "crate::Todo"
-"InlineCompletionList|Vec<InlineCompletionItem>".ref = "crate::Todo"
-"SemanticTokensPartialResult|SemanticTokensDeltaPartialResult".ref = "crate::Todo"
-"SemanticTokens|SemanticTokensDelta".ref = "crate::Todo"
-"Vec<CompletionItem>|CompletionList".ref = "crate::Todo"
-"Vec<Location>|Vec<DeclarationLink>".ref = "crate::Todo"
-"Vec<Location>|Vec<DefinitionLink>".ref = "crate::Todo"
-"Vec<SymbolInformation>|Vec<DocumentSymbol>".ref = "crate::Todo"
-"Vec<SymbolInformation>|Vec<WorkspaceSymbol>".ref = "crate::Todo"
-"String|Vec<InlayHintLabelPart>".ref = "crate::Todo"
-"DiagnosticOptions|DiagnosticRegistrationOptions".ref = "crate::Todo"
-"FullDocumentDiagnosticReport|UnchangedDocumentDiagnosticReport".ref = "crate::Todo"
-"Location|LocationUriOnly".ref = "crate::Todo"
-"MarkupContent|MarkedString|Vec<MarkedString>".ref = "crate::Todo"
-"NotebookDocumentFilterWithNotebook|NotebookDocumentFilterWithCells".ref = "crate::Todo"
-"NotebookDocumentSyncOptions|NotebookDocumentSyncRegistrationOptions".ref = "crate::Todo"
-"Range|EditRangeWithInsertReplace".ref = "crate::Todo"
-"SemanticTokensOptions|SemanticTokensRegistrationOptions".ref = "crate::Todo"
-"String|(u32,u32)".ref = "crate::Todo"
-"String|MarkupContent".ref = "crate::Todo"
-"String|StringValue".ref = "crate::Todo"
-"String|Vec<String>".ref = "crate::Todo"
-"String|bool".ref = "crate::Todo"
-"TextDocumentContentOptions|TextDocumentContentRegistrationOptions".ref = "crate::Todo"
-"TextDocumentSyncOptions|TextDocumentSyncKind".ref = "crate::Todo"
-"TextEdit|AnnotatedTextEdit|SnippetTextEdit".ref = "crate::Todo"
-"TextEdit|InsertReplaceEdit".ref = "crate::Todo"
-"WorkspaceFolder|Uri".ref = "crate::Todo"
-"bool|CallHierarchyOptions|CallHierarchyRegistrationOptions".ref = "crate::Todo"
-"bool|ClientSemanticTokensRequestFullDelta".ref = "crate::Todo"
-"bool|CodeActionOptions".ref = "crate::Todo"
-"bool|DeclarationOptions|DeclarationRegistrationOptions".ref = "crate::Todo"
-"bool|DefinitionOptions".ref = "crate::Todo"
-"bool|DocumentColorOptions|DocumentColorRegistrationOptions".ref = "crate::Todo"
-"bool|DocumentFormattingOptions".ref = "crate::Todo"
-"bool|DocumentHighlightOptions".ref = "crate::Todo"
-"bool|DocumentRangeFormattingOptions".ref = "crate::Todo"
-"bool|DocumentSymbolOptions".ref = "crate::Todo"
-"bool|FoldingRangeOptions|FoldingRangeRegistrationOptions".ref = "crate::Todo"
-"bool|HoverOptions".ref = "crate::Todo"
-"bool|ImplementationOptions|ImplementationRegistrationOptions".ref = "crate::Todo"
-"bool|InlayHintOptions|InlayHintRegistrationOptions".ref = "crate::Todo"
-"bool|InlineCompletionOptions".ref = "crate::Todo"
-"bool|InlineValueOptions|InlineValueRegistrationOptions".ref = "crate::Todo"
-"bool|LinkedEditingRangeOptions|LinkedEditingRangeRegistrationOptions".ref = "crate::Todo"
-"bool|MonikerOptions|MonikerRegistrationOptions".ref = "crate::Todo"
-"bool|ReferenceOptions".ref = "crate::Todo"
-"bool|RenameOptions".ref = "crate::Todo"
-"bool|SaveOptions".ref = "crate::Todo"
-"bool|SelectionRangeOptions|SelectionRangeRegistrationOptions".ref = "crate::Todo"
-"bool|SemanticTokensFullDelta".ref = "crate::Todo"
-"bool|TypeDefinitionOptions|TypeDefinitionRegistrationOptions".ref = "crate::Todo"
-"bool|TypeHierarchyOptions|TypeHierarchyRegistrationOptions".ref = "crate::Todo"
-"bool|WorkspaceSymbolOptions".ref = "crate::Todo"
-"InlineValueText|InlineValueVariableLookup|InlineValueEvaluatableExpression".ref = "crate::Todo"
-"Location|Vec<Location>".ref = "crate::Todo"
-"NotebookDocumentFilterNotebookType|NotebookDocumentFilterScheme|NotebookDocumentFilterPattern".ref = "crate::Todo"
-"Pattern|RelativePattern".ref = "crate::Todo"
-"Range|PrepareRenamePlaceholder|PrepareRenameDefaultBehavior".ref = "crate::Todo"
-"RelatedFullDocumentDiagnosticReport|RelatedUnchangedDocumentDiagnosticReport".ref = "crate::Todo"
-"TextDocumentContentChangePartial|TextDocumentContentChangeWholeDocument".ref = "crate::Todo"
-"TextDocumentFilterLanguage|TextDocumentFilterScheme|TextDocumentFilterPattern".ref = "crate::Todo"
-"TextDocumentFilter|NotebookCellTextDocumentFilter".ref = "crate::Todo"
-"WorkspaceFullDocumentDiagnosticReport|WorkspaceUnchangedDocumentDiagnosticReport".ref = "crate::Todo"
+"Declaration|Vec<DeclarationLink>" = { name = "DeclarationResponse", variants = ["Declaration", "Links"] }
+"Definition|Vec<DefinitionLink>" = { name = "DefinitionResponse", variants = ["Definition", "Links"] }
+"InlineCompletionList|Vec<InlineCompletionItem>" = { name = "InlineCompletionResponse", variants = ["List", "Items"] }
+"SemanticTokensPartialResult|SemanticTokensDeltaPartialResult" = { name = "SemanticTokensPartialResponse", variants = ["Full", "Delta"] }
+"SemanticTokens|SemanticTokensDelta" = { name = "SemanticTokensResponse", variants = ["Full", "Delta"] }
+"Vec<CompletionItem>|CompletionList" = { name = "CompletionResponse", variants = ["Items", "List"] }
+"Vec<Location>|Vec<DeclarationLink>" = { name = "DeclarationLinks", variants = ["Locations", "Links"] }
+"Vec<Location>|Vec<DefinitionLink>" = { name = "DefinitionLinks", variants = ["Locations", "Links"] }
+"Vec<SymbolInformation>|Vec<DocumentSymbol>" = { name = "DocumentSymbolResponse", variants = ["Information", "Symbol"] }
+"Vec<SymbolInformation>|Vec<WorkspaceSymbol>" = { name = "WorkspaceSymbolResponse", variants = ["Information", "Symbol"] }
+"String|Vec<InlayHintLabelPart>" = { name = "InlayHintLabelEnum", variants = ["String", "Parts"] }
+"DiagnosticOptions|DiagnosticRegistrationOptions" = { name = "DiagnosticProvider", variants = ["Options", "RegistrationOptions"] }
+"FullDocumentDiagnosticReport|UnchangedDocumentDiagnosticReport" = { name = "DocumentDiagnosticReportEnum", variants = ["Full", "Unchanged"] }
+"Location|LocationUriOnly" = { name = "LocationOrUri", variants = ["Location", "Uri"] }
+"MarkupContent|MarkedString|Vec<MarkedString>" = { name = "HoverContents", variants = ["Markup", "Marked", "MarkedArray"] }
+"NotebookDocumentFilterWithNotebook|NotebookDocumentFilterWithCells" = { name = "NotebookDocumentFilterEnum", variants = ["Notebook", "Cells"] }
+"NotebookDocumentSyncOptions|NotebookDocumentSyncRegistrationOptions" = { name = "NotebookDocumentSyncProvider", variants = ["Options", "RegistrationOptions"] }
+"Range|EditRangeWithInsertReplace" = { name = "CompletionItemEditRange", variants = ["Range", "InsertReplace"] }
+"SemanticTokensOptions|SemanticTokensRegistrationOptions" = { name = "SemanticTokensProvider", variants = ["Options", "RegistrationOptions"] }
+"String|(u32,u32)" = { name = "ParameterLabel", variants = ["String", "Offsets"] }
+"String|MarkupContent" = { name = "MarkupOrString", variants = ["String", "Markup"] }
+"String|StringValue" = { name = "StringOrValue", variants = ["String", "Value"] }
+"String|Vec<String>" = { name = "StringOrArray", variants = ["String", "Array"] }
+"String|bool" = { name = "StringOrBoolean", variants = ["String", "Boolean"] }
+"TextDocumentContentOptions|TextDocumentContentRegistrationOptions" = { name = "TextDocumentContentProvider", variants = ["Options", "RegistrationOptions"] }
+"TextDocumentSyncOptions|TextDocumentSyncKind" = { name = "TextDocumentSyncEnum", variants = ["Options", "Kind"] }
+"TextEdit|AnnotatedTextEdit|SnippetTextEdit" = { name = "TextEditEnum", variants = ["Simple", "Annotated", "Snippet"] }
+"TextEdit|InsertReplaceEdit" = { name = "TextEditOrInsertReplace", variants = ["TextEdit", "InsertReplace"] }
+"WorkspaceFolder|Uri" = { name = "WorkspaceFolderOrUri", variants = ["Folder", "Uri"] }
+"bool|CallHierarchyOptions|CallHierarchyRegistrationOptions" = { name = "CallHierarchyProvider", variants = ["Simple", "Options", "RegistrationOptions"] }
+"bool|ClientSemanticTokensRequestFullDelta" = { name = "SemanticTokensFullDeltaSupport", variants = ["Boolean", "Delta"] }
+"bool|CodeActionOptions" = { name = "CodeActionProvider", variants = ["Simple", "Options"] }
+"bool|DeclarationOptions|DeclarationRegistrationOptions" = { name = "DeclarationProvider", variants = ["Simple", "Options", "RegistrationOptions"] }
+"bool|DefinitionOptions" = { name = "DefinitionProvider", variants = ["Simple", "Options"] }
+"bool|DocumentColorOptions|DocumentColorRegistrationOptions" = { name = "DocumentColorProvider", variants = ["Simple", "Options", "RegistrationOptions"] }
+"bool|DocumentFormattingOptions" = { name = "DocumentFormattingProvider", variants = ["Simple", "Options"] }
+"bool|DocumentHighlightOptions" = { name = "DocumentHighlightProvider", variants = ["Simple", "Options"] }
+"bool|DocumentRangeFormattingOptions" = { name = "DocumentRangeFormattingProvider", variants = ["Simple", "Options"] }
+"bool|DocumentSymbolOptions" = { name = "DocumentSymbolProvider", variants = ["Simple", "Options"] }
+"bool|FoldingRangeOptions|FoldingRangeRegistrationOptions" = { name = "FoldingRangeProvider", variants = ["Simple", "Options", "RegistrationOptions"] }
+"bool|HoverOptions" = { name = "HoverProvider", variants = ["Simple", "Options"] }
+"bool|ImplementationOptions|ImplementationRegistrationOptions" = { name = "ImplementationProvider", variants = ["Simple", "Options", "RegistrationOptions"] }
+"bool|InlayHintOptions|InlayHintRegistrationOptions" = { name = "InlayHintProvider", variants = ["Simple", "Options", "RegistrationOptions"] }
+"bool|InlineCompletionOptions" = { name = "InlineCompletionProvider", variants = ["Simple", "Options"] }
+"bool|InlineValueOptions|InlineValueRegistrationOptions" = { name = "InlineValueProvider", variants = ["Simple", "Options", "RegistrationOptions"] }
+"bool|LinkedEditingRangeOptions|LinkedEditingRangeRegistrationOptions" = { name = "LinkedEditingRangeProvider", variants = ["Simple", "Options", "RegistrationOptions"] }
+"bool|MonikerOptions|MonikerRegistrationOptions" = { name = "MonikerProvider", variants = ["Simple", "Options", "RegistrationOptions"] }
+"bool|ReferenceOptions" = { name = "ReferenceProvider", variants = ["Simple", "Options"] }
+"bool|RenameOptions" = { name = "RenameProvider", variants = ["Simple", "Options"] }
+"bool|SaveOptions" = { name = "SaveOptionsEnum", variants = ["Boolean", "Options"] }
+"bool|SelectionRangeOptions|SelectionRangeRegistrationOptions" = { name = "SelectionRangeProvider", variants = ["Simple", "Options", "RegistrationOptions"] }
+"bool|SemanticTokensFullDelta" = { name = "SemanticTokensFullDelta", variants = ["Boolean", "Delta"] }
+"bool|TypeDefinitionOptions|TypeDefinitionRegistrationOptions" = { name = "TypeDefinitionProvider", variants = ["Simple", "Options", "RegistrationOptions"] }
+"bool|TypeHierarchyOptions|TypeHierarchyRegistrationOptions" = { name = "TypeHierarchyProvider", variants = ["Simple", "Options", "RegistrationOptions"] }
+"bool|WorkspaceSymbolOptions" = { name = "WorkspaceSymbolProvider", variants = ["Simple", "Options"] }
+"InlineValueText|InlineValueVariableLookup|InlineValueEvaluatableExpression" = { name = "InlineValueEnum", variants = ["Text", "VariableLookup", "EvaluatableExpression"] }
+"Location|Vec<Location>" = { name = "LocationResponse", variants = ["Location", "Locations"] }
+"NotebookDocumentFilterNotebookType|NotebookDocumentFilterScheme|NotebookDocumentFilterPattern" = { name = "NotebookDocumentFilterInternal", variants = ["Type", "Scheme", "Pattern"] }
+"Pattern|RelativePattern" = { name = "GlobPatternEnum", variants = ["Pattern", "Relative"] }
+"Range|PrepareRenamePlaceholder|PrepareRenameDefaultBehavior" = { name = "PrepareRenameResponse", variants = ["Range", "Placeholder", "DefaultBehavior"] }
+"RelatedFullDocumentDiagnosticReport|RelatedUnchangedDocumentDiagnosticReport" = { name = "RelatedDocumentDiagnosticReport", variants = ["Full", "Unchanged"] }
+"TextDocumentContentChangePartial|TextDocumentContentChangeWholeDocument" = { name = "TextDocumentContentChangeEnum", variants = ["Partial", "Whole"] }
+"TextDocumentFilterLanguage|TextDocumentFilterScheme|TextDocumentFilterPattern" = { name = "TextDocumentFilterEnum", variants = ["Language", "Scheme", "Pattern"] }
+"TextDocumentFilter|NotebookCellTextDocumentFilter" = { name = "DocumentFilterEnum", variants = ["Text", "Notebook"] }
+"WorkspaceFullDocumentDiagnosticReport|WorkspaceUnchangedDocumentDiagnosticReport" = { name = "WorkspaceDocumentDiagnosticReportEnum", variants = ["Full", "Unchanged"] }
+
 
 [structs]
 # struggle to make the enum
