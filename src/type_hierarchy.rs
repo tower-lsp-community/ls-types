@@ -14,6 +14,26 @@ pub struct TypeHierarchyOptions {
     pub work_done_progress_options: WorkDoneProgressOptions,
 }
 
+#[derive(Debug, Eq, PartialEq, Clone, Deserialize, Serialize)]
+#[serde(untagged)]
+pub enum TypeHierarchyServerCapability {
+    Simple(bool),
+    Options(TypeHierarchyOptions),
+    RegistrationOptions(TypeHierarchyRegistrationOptions),
+}
+
+impl From<bool> for TypeHierarchyServerCapability {
+    fn from(from: bool) -> Self {
+        Self::Simple(from)
+    }
+}
+
+impl From<TypeHierarchyOptions> for TypeHierarchyServerCapability {
+    fn from(from: TypeHierarchyOptions) -> Self {
+        Self::Options(from)
+    }
+}
+
 #[derive(Debug, Eq, PartialEq, Clone, Default, Deserialize, Serialize)]
 pub struct TypeHierarchyRegistrationOptions {
     #[serde(flatten)]
